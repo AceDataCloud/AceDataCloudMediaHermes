@@ -14,5 +14,6 @@
     "result_count": 1,
     "first_link": "https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins"
   },
-  "validation_context": "Historical standalone source before consolidation; unchanged service schema and transport. Consolidated regression is recorded separately."
+  "validation_context": "Historical standalone source before consolidation; unchanged service schema and transport. Consolidated regression is recorded separately.",
+  "media_note": "Historical decoded media digests retained; temporary URLs omitted. The local validation artifacts retain actual responses."
 }

@@ -62,7 +62,7 @@ imply every advanced action or option from the broader APIs/Dify integrations.
 | `acedata-suno` | Music from prompts or custom lyrics | `acedata_suno_generate` |
 | `acedata-fish` | Speech with optional saved voice reference | `acedata_fish_generate` |
 | `acedata-gpt-image` | GPT Image 2 generation | `acedata_gpt_image_generate` |
-| `acedata-seedance` | Seedance 2.0 Mini text/video and first-frame animation | `acedata_seedance_generate` |
+| `acedata-seedance` | Seedance 2.0 Mini text-to-video and first-frame animation | `acedata_seedance_generate` |
 | `acedata-seedream` | Seedream 5.0 Lite image generation | `acedata_seedream_generate` |
 | `acedata-happyhorse` | Happy Horse text-to-video | `acedata_happyhorse_generate` |
 | `acedata-qwen-image` | Qwen Image 3.0 generation | `acedata_qwen_image_generate` |
@@ -71,7 +71,7 @@ imply every advanced action or option from the broader APIs/Dify integrations.
 | `acedata-face` | Face landmarks in an HTTPS image | `acedata_face_analyze` |
 | `acedata-midjourney` | Midjourney image generation | `acedata_midjourney_generate` |
 | `acedata-flux` | FLUX Dev image generation | `acedata_flux_generate` |
-| `acedata-minimax` | MiniMax H3 text/video and first-frame animation | `acedata_minimax_generate` |
+| `acedata-minimax` | MiniMax H3 text-to-video and first-frame animation | `acedata_minimax_generate` |
 | `acedata-wan` | Wan 2.6 text-to-video | `acedata_wan_generate` |
 | `acedata-kling` | Kling 3 Turbo text-to-video | `acedata_kling_generate` |
 
@@ -146,8 +146,9 @@ image provider in a fresh profile, including host isolation, without paid calls.
 
 [Historical live evidence](tests/evidence/) records the 17 primary operations
 before consolidation, with source provenance and media decoding. Service schemas,
-the HTTP/task client and the Nano backend are preserved; the consolidation changes
-registration and distribution. The separate consolidation regression record
+request defaults and task handling are preserved; the release consolidates
+registration and tightens reference-URL input validation. The
+[consolidation regression record](tests/evidence/consolidation.json)
 identifies subsequent checks and existing-task recovery. Historical evidence is
 not presented as a new billable generation or proof of catalog publication.
 

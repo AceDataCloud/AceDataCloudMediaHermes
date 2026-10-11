@@ -31,10 +31,12 @@ class NanoBananaProvider(ImageGenProvider):
     def generate(self, prompt, aspect_ratio='landscape', *, image_url=None, reference_image_urls=None, **kwargs):
         args = {'prompt': prompt, 'model': 'nano-banana-2-lite', 'count': 1,
                 'aspect_ratio': {'square': '1:1', 'portrait': '9:16', 'landscape': '16:9'}.get(aspect_ratio, '16:9')}
-        refs = ([image_url] if image_url else []) + list(reference_image_urls or [])
-        if refs:
-            args['image_urls'] = refs
         try:
+            if reference_image_urls is not None and not isinstance(reference_image_urls, (list, tuple)):
+                raise ValueError('Reference images must be a list of HTTPS URLs.')
+            refs = ([image_url] if image_url else []) + list(reference_image_urls or [])
+            if refs:
+                args['image_urls'] = refs
             result = self.client.generate(args)
             if result['status'] == 'pending':
                 result = self.client.retrieve({'task_id': result['task_id'], 'wait_seconds': 60})

@@ -94,3 +94,20 @@ class RegistrationTests(unittest.TestCase):
         for entry in self.ctx.tools.values():
             self.assertEqual(entry['requires_env'], ['ACEDATACLOUD_API_KEY'])
             self.assertNotIn('override', entry)
+
+    def test_invalid_reference_inputs_never_submit(self):
+        spec = next(s for s in plugin.SERVICES if s['service'] == 'nano-banana')
+        oversized = 'https://example.com/' + 'a' * 2048
+        for url in [oversized, 'https://example.com:bad/image', 'https://example.com/a\nb']:
+            with self.subTest(url=url[:50]), patch.object(plugin.client, 'request') as request:
+                result = json.loads(self.ctx.tools[spec['generate_name']]['handler'](
+                    {'prompt': 'Edit image', 'image_urls': [url]}))
+                self.assertEqual(result['error']['code'], 'invalid_parameters')
+                request.assert_not_called()
+        provider = self.ctx.providers[0]
+        for refs in ['https://example.com/image', 123, {'url': 'https://example.com/image'}]:
+            with patch.object(plugin.client, 'request') as request:
+                result = provider.generate('A cube', reference_image_urls=refs)
+                self.assertFalse(result['success'])
+                self.assertEqual(result['error_type'], 'invalid_parameters')
+                request.assert_not_called()

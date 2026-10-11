@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Kling",
   "kind": "video",
   "description": "Kling 3 Turbo text-to-video generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_kling",
+  "tool_prefix": "acedatacloud_kling",
   "generate_path": "/kling/videos",
   "task_path": "/kling/tasks",
   "defaults": {
@@ -74,10 +74,10 @@
       }
     }
   },
-  "generate_name": "acedata_kling_generate",
+  "generate_name": "acedatacloud_kling_generate",
   "tools": [
-    "acedata_kling_generate",
-    "acedata_kling_task"
+    "acedatacloud_kling_generate",
+    "acedatacloud_kling_task"
   ],
-  "toolset": "acedata-kling"
+  "toolset": "acedatacloud-kling"
 }

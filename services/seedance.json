@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Seedance",
   "kind": "video",
   "description": "Seedance 2.0 Mini text-to-video and first-frame animation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_seedance",
+  "tool_prefix": "acedatacloud_seedance",
   "generate_path": "/seedance/videos",
   "task_path": "/seedance/tasks",
   "defaults": {
@@ -88,10 +88,10 @@
       }
     }
   },
-  "generate_name": "acedata_seedance_generate",
+  "generate_name": "acedatacloud_seedance_generate",
   "tools": [
-    "acedata_seedance_generate",
-    "acedata_seedance_task"
+    "acedatacloud_seedance_generate",
+    "acedatacloud_seedance_task"
   ],
-  "toolset": "acedata-seedance"
+  "toolset": "acedatacloud-seedance"
 }

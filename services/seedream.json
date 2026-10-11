@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Seedream",
   "kind": "image",
   "description": "Seedream 5.0 Lite text-to-image generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_seedream",
+  "tool_prefix": "acedatacloud_seedream",
   "generate_path": "/seedream/images",
   "task_path": "/seedream/tasks",
   "defaults": {
@@ -62,10 +62,10 @@
       }
     }
   },
-  "generate_name": "acedata_seedream_generate",
+  "generate_name": "acedatacloud_seedream_generate",
   "tools": [
-    "acedata_seedream_generate",
-    "acedata_seedream_task"
+    "acedatacloud_seedream_generate",
+    "acedatacloud_seedream_task"
   ],
-  "toolset": "acedata-seedream"
+  "toolset": "acedatacloud-seedream"
 }

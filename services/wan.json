@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Wan",
   "kind": "video",
   "description": "Wan 2.6 text-to-video generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_wan",
+  "tool_prefix": "acedatacloud_wan",
   "generate_path": "/wan/videos",
   "task_path": "/wan/tasks",
   "defaults": {
@@ -71,10 +71,10 @@
       }
     }
   },
-  "generate_name": "acedata_wan_generate",
+  "generate_name": "acedatacloud_wan_generate",
   "tools": [
-    "acedata_wan_generate",
-    "acedata_wan_task"
+    "acedatacloud_wan_generate",
+    "acedatacloud_wan_task"
   ],
-  "toolset": "acedata-wan"
+  "toolset": "acedatacloud-wan"
 }

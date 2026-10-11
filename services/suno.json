@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Suno",
   "kind": "audio",
   "description": "Music generation with prompts or custom lyrics through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_suno",
+  "tool_prefix": "acedatacloud_suno",
   "generate_path": "/suno/audios",
   "task_path": "/suno/tasks",
   "defaults": {
@@ -81,10 +81,10 @@
       }
     }
   },
-  "generate_name": "acedata_suno_generate",
+  "generate_name": "acedatacloud_suno_generate",
   "tools": [
-    "acedata_suno_generate",
-    "acedata_suno_task"
+    "acedatacloud_suno_generate",
+    "acedatacloud_suno_task"
   ],
-  "toolset": "acedata-suno"
+  "toolset": "acedatacloud-suno"
 }

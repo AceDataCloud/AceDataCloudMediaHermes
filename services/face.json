@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Face Transform",
   "kind": "face",
   "description": "Face landmark analysis from an HTTPS image through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_face",
+  "tool_prefix": "acedatacloud_face",
   "generate_path": "/face/analyze",
   "task_path": null,
   "defaults": {},
@@ -40,9 +40,9 @@
       }
     }
   },
-  "generate_name": "acedata_face_analyze",
+  "generate_name": "acedatacloud_face_analyze",
   "tools": [
-    "acedata_face_analyze"
+    "acedatacloud_face_analyze"
   ],
-  "toolset": "acedata-face"
+  "toolset": "acedatacloud-face"
 }

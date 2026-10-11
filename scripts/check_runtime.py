@@ -31,6 +31,10 @@ def child(mode):
     rows = {r[0] for r in get_plugin_toolsets()}
     assert expected_sets <= rows, (expected_sets - rows, mode)
     assert len(expected_tools) == 32 and len(expected_sets) == 17
+    assert all(name.startswith('acedatacloud_') for name in expected_tools)
+    assert all(name.startswith('acedatacloud-') for name in expected_sets)
+    for name in expected_tools:
+        assert registry.get_entry(name.replace('acedatacloud_', 'acedata_', 1), scope=manager.scope_key) is None
     for spec in specs:
         assert set(resolve_toolset(spec['toolset'])) == set(spec['tools'])
         for name in spec['tools']:
@@ -66,8 +70,8 @@ def child(mode):
     assert not provider.is_available()
     # The normal tools CLI offers/persists each independent service toggle.
     commands = [
-        ['tools', 'disable', 'acedata-veo'],
-        ['tools', 'enable', 'acedata-suno'],
+        ['tools', 'disable', 'acedatacloud-veo'],
+        ['tools', 'enable', 'acedatacloud-suno'],
         ['tools', 'list'],
     ]
     for command in commands:
@@ -80,7 +84,7 @@ def child(mode):
     from hermes_cli.config import load_config
     from hermes_cli.tools_config import _get_platform_tools
     enabled = _get_platform_tools(load_config(), 'cli', include_default_mcp_servers=False)
-    assert 'acedata-suno' in enabled and 'acedata-veo' not in enabled, enabled
+    assert 'acedatacloud-suno' in enabled and 'acedatacloud-veo' not in enabled, enabled
     manager.unload()
     print(json.dumps({'mode': mode, 'services': 17, 'registered_tools': 32,
                       'native_image_provider': True, 'independent_cli_selection': True,
@@ -96,7 +100,7 @@ def main():
         return
     source = Path(os.environ['HERMES_SOURCE']).resolve()
     for mode in ['in_process', 'host']:
-        with tempfile.TemporaryDirectory(prefix='hermes-acedata-media-') as tmp:
+        with tempfile.TemporaryDirectory(prefix='hermes-acedatacloud-media-') as tmp:
             home = Path(tmp)
             destination = home / 'plugins/acedatacloud-media'
             shutil.copytree(ROOT, destination, ignore=shutil.ignore_patterns(
@@ -107,7 +111,7 @@ def main():
                 (home / 'cache/uv').symlink_to(cache, target_is_directory=True)
             (home / 'config.yaml').write_text(json.dumps({
                 'plugins': {'enabled': ['acedatacloud-media'], 'isolation': mode},
-                'toolsets': ['acedata-suno'],
+                'toolsets': ['acedatacloud-suno'],
             }))
             env = {k: v for k, v in os.environ.items() if k in {
                 'PATH', 'HOME', 'USER', 'LANG', 'TMPDIR', 'HERMES_RUNTIME_DIR'}}

@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud GPT Image",
   "kind": "image",
   "description": "GPT Image 2 text-to-image generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_gpt_image",
+  "tool_prefix": "acedatacloud_gpt_image",
   "generate_path": "/openai/images/generations",
   "task_path": "/openai/tasks",
   "defaults": {
@@ -76,10 +76,10 @@
       }
     }
   },
-  "generate_name": "acedata_gpt_image_generate",
+  "generate_name": "acedatacloud_gpt_image_generate",
   "tools": [
-    "acedata_gpt_image_generate",
-    "acedata_gpt_image_task"
+    "acedatacloud_gpt_image_generate",
+    "acedatacloud_gpt_image_task"
   ],
-  "toolset": "acedata-gpt-image"
+  "toolset": "acedatacloud-gpt-image"
 }

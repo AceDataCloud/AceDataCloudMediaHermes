@@ -30,12 +30,12 @@ hermes tools
 
 Enter the key only into your active Hermes profile, never into a chat prompt.
 In `hermes tools`, select only the service toolsets you want the agent to use and
-start a new session. Each service has its own row, for example `acedata-veo` and
-`acedata-suno`. Normal Hermes CLI selection also works:
+start a new session. Each service has its own row, for example `acedatacloud-veo` and
+`acedatacloud-suno`. Normal Hermes CLI selection also works:
 
 ```sh
-hermes tools disable acedata-veo
-hermes tools enable acedata-suno
+hermes tools disable acedatacloud-veo
+hermes tools enable acedatacloud-suno
 hermes tools list
 ```
 
@@ -45,9 +45,23 @@ and enabling toolsets are separate steps. This plugin does not modify your
 toolset preferences or approval settings.
 
 If you installed earlier standalone Ace media candidates, remove or disable them
-before enabling this plugin: their tool names are retained for compatibility.
+before enabling this plugin to avoid duplicate service integrations.
 Keep the separate `acedatacloud` model provider. No tools are overridden and no
 other plugin or credential store is modified automatically.
+
+## Upgrade from v1.0.0
+
+Version **2.0.0** standardizes all 32 tool names on `acedatacloud_` and all
+17 service toolsets on `acedatacloud-`. This changes the public identifiers:
+for example, `acedata_veo_generate` becomes `acedatacloud_veo_generate`, and
+`acedata-veo` becomes `acedatacloud-veo`. The old names are not registered as aliases.
+
+After updating the pinned plugin version, run `hermes tools`, reselect your desired
+service toolsets and start a new session. Update saved prompts and explicit tool
+references. Existing task IDs still work with the renamed task tools; no new
+media generation is needed. The plugin name, API key and native image-provider ID
+remain the same. Roll back by pinning the previous version and reselecting its
+service toolsets.
 
 ## Services
 
@@ -57,29 +71,29 @@ imply every advanced action or option from the broader APIs/Dify integrations.
 
 | Toolset | Primary operation | Generate/search/analysis tool |
 | --- | --- | --- |
-| `acedata-nano-banana` | Image generation and HTTPS reference-image editing | `acedata_nano_banana_generate` |
-| `acedata-veo` | Veo 3.1 Fast text/image-to-video | `acedata_veo_generate` |
-| `acedata-suno` | Music from prompts or custom lyrics | `acedata_suno_generate` |
-| `acedata-fish` | Speech with optional saved voice reference | `acedata_fish_generate` |
-| `acedata-gpt-image` | GPT Image 2 generation | `acedata_gpt_image_generate` |
-| `acedata-seedance` | Seedance 2.0 Mini text-to-video and first-frame animation | `acedata_seedance_generate` |
-| `acedata-seedream` | Seedream 5.0 Lite image generation | `acedata_seedream_generate` |
-| `acedata-happyhorse` | Happy Horse text-to-video | `acedata_happyhorse_generate` |
-| `acedata-qwen-image` | Qwen Image 3.0 generation | `acedata_qwen_image_generate` |
-| `acedata-google-search` | Google web/news results with links and snippets | `acedata_google_search_search` |
-| `acedata-grok` | Grok Imagine fast video | `acedata_grok_generate` |
-| `acedata-face` | Face landmarks in an HTTPS image | `acedata_face_analyze` |
-| `acedata-midjourney` | Midjourney image generation | `acedata_midjourney_generate` |
-| `acedata-flux` | FLUX Dev image generation | `acedata_flux_generate` |
-| `acedata-minimax` | MiniMax H3 text-to-video and first-frame animation | `acedata_minimax_generate` |
-| `acedata-wan` | Wan 2.6 text-to-video | `acedata_wan_generate` |
-| `acedata-kling` | Kling 3 Turbo text-to-video | `acedata_kling_generate` |
+| `acedatacloud-nano-banana` | Image generation and HTTPS reference-image editing | `acedatacloud_nano_banana_generate` |
+| `acedatacloud-veo` | Veo 3.1 Fast text/image-to-video | `acedatacloud_veo_generate` |
+| `acedatacloud-suno` | Music from prompts or custom lyrics | `acedatacloud_suno_generate` |
+| `acedatacloud-fish` | Speech with optional saved voice reference | `acedatacloud_fish_generate` |
+| `acedatacloud-gpt-image` | GPT Image 2 generation | `acedatacloud_gpt_image_generate` |
+| `acedatacloud-seedance` | Seedance 2.0 Mini text-to-video and first-frame animation | `acedatacloud_seedance_generate` |
+| `acedatacloud-seedream` | Seedream 5.0 Lite image generation | `acedatacloud_seedream_generate` |
+| `acedatacloud-happyhorse` | Happy Horse text-to-video | `acedatacloud_happyhorse_generate` |
+| `acedatacloud-qwen-image` | Qwen Image 3.0 generation | `acedatacloud_qwen_image_generate` |
+| `acedatacloud-google-search` | Google web/news results with links and snippets | `acedatacloud_google_search_search` |
+| `acedatacloud-grok` | Grok Imagine fast video | `acedatacloud_grok_generate` |
+| `acedatacloud-face` | Face landmarks in an HTTPS image | `acedatacloud_face_analyze` |
+| `acedatacloud-midjourney` | Midjourney image generation | `acedatacloud_midjourney_generate` |
+| `acedatacloud-flux` | FLUX Dev image generation | `acedatacloud_flux_generate` |
+| `acedatacloud-minimax` | MiniMax H3 text-to-video and first-frame animation | `acedatacloud_minimax_generate` |
+| `acedatacloud-wan` | Wan 2.6 text-to-video | `acedatacloud_wan_generate` |
+| `acedatacloud-kling` | Kling 3 Turbo text-to-video | `acedatacloud_kling_generate` |
 
-Each of the 15 media services also has its own `acedata_<service>_task` tool in
+Each of the 15 media services also has its own `acedatacloud_<service>_task` tool in
 the same toolset (hyphens become underscores). Google Search and Face return
 synchronous structured results. The manifest declares all 32 tools.
 
-Example for `acedata_nano_banana_generate`:
+Example for `acedatacloud_nano_banana_generate`:
 
 ```json
 {"prompt":"A teal ceramic cube on a cream background.","model":"nano-banana-2-lite","count":1,"resolution":"1K"}
@@ -105,11 +119,11 @@ In `hermes tools` → Image Generation select **Ace Data Cloud Nano Banana** to 
 the native `image_generate` backend, registered as `acedatacloud-nano-banana`.
 This backend uses `nano-banana-2-lite`, one image, and maps square/landscape/portrait
 to 1:1/16:9/9:16. It accepts up to four HTTPS image references, not local paths.
-If its bounded wait expires, use `acedata_nano_banana_task` with the returned ID.
+If its bounded wait expires, use `acedatacloud_nano_banana_task` with the returned ID.
 Do not generate again to recover the result.
 
 The native `image_generate` entry belongs to Hermes's image-generation toolset.
-Its enablement is separate from `acedata-nano-banana`: to stop all Nano requests,
+Its enablement is separate from `acedatacloud-nano-banana`: to stop all Nano requests,
 also disable Image Generation or select a different backend. The backend incurs
 the same Credits and data transmission described above, without a confirmation
 prompt. The direct Nano tool exposes the wider model/resolution/count schema.
@@ -145,7 +159,8 @@ per-service selection, scoped credential availability, dispatch and the native
 image provider in a fresh profile, including host isolation, without paid calls.
 
 [Historical live evidence](tests/evidence/) records the 17 primary operations
-before consolidation, with source provenance and media decoding. Service schemas,
+before consolidation, with source provenance and media decoding. Their old tool
+identifiers are retained as historical facts, not presented as v2 registrations. Service schemas,
 request defaults and task handling are preserved; the release consolidates
 registration and tightens reference-URL input validation. The
 [consolidation regression record](tests/evidence/consolidation.json)

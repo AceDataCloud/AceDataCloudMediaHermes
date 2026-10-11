@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Qwen Image",
   "kind": "image",
   "description": "Qwen Image 3.0 text-to-image generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_qwen_image",
+  "tool_prefix": "acedatacloud_qwen_image",
   "generate_path": "/qwen-image/images",
   "task_path": "/qwen-image/tasks",
   "defaults": {
@@ -72,10 +72,10 @@
       }
     }
   },
-  "generate_name": "acedata_qwen_image_generate",
+  "generate_name": "acedatacloud_qwen_image_generate",
   "tools": [
-    "acedata_qwen_image_generate",
-    "acedata_qwen_image_task"
+    "acedatacloud_qwen_image_generate",
+    "acedatacloud_qwen_image_task"
   ],
-  "toolset": "acedata-qwen-image"
+  "toolset": "acedatacloud-qwen-image"
 }

@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud MiniMax H3",
   "kind": "video",
   "description": "MiniMax H3 text-to-video and first-frame animation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_minimax",
+  "tool_prefix": "acedatacloud_minimax",
   "generate_path": "/minimax/videos",
   "task_path": "/minimax/tasks",
   "defaults": {
@@ -82,10 +82,10 @@
       }
     }
   },
-  "generate_name": "acedata_minimax_generate",
+  "generate_name": "acedatacloud_minimax_generate",
   "tools": [
-    "acedata_minimax_generate",
-    "acedata_minimax_task"
+    "acedatacloud_minimax_generate",
+    "acedatacloud_minimax_task"
   ],
-  "toolset": "acedata-minimax"
+  "toolset": "acedatacloud-minimax"
 }

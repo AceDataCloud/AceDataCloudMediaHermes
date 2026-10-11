@@ -44,7 +44,7 @@ class NanoBananaProvider(ImageGenProvider):
                 return success_response(image=result['media_urls'][0], model=args['model'], prompt=prompt,
                                         aspect_ratio=aspect_ratio, provider=self.name, modality='image' if refs else 'text',
                                         extra={'task_id': result['task_id'], 'trace_id': result['trace_id']})
-            error = error_response(error='Image not completed. Recover with acedata_nano_banana_task using the same task_id; do not generate again.',
+            error = error_response(error='Image not completed. Recover with acedatacloud_nano_banana_task using the same task_id; do not generate again.',
                                    error_type=result['status'], provider=self.name, model=args['model'])
             error.update(task_id=result.get('task_id', ''), trace_id=result.get('trace_id', ''))
             return error

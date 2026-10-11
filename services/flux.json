@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Flux",
   "kind": "image",
   "description": "FLUX Dev text-to-image generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_flux",
+  "tool_prefix": "acedatacloud_flux",
   "generate_path": "/flux/images",
   "task_path": "/flux/tasks",
   "defaults": {
@@ -65,10 +65,10 @@
       }
     }
   },
-  "generate_name": "acedata_flux_generate",
+  "generate_name": "acedatacloud_flux_generate",
   "tools": [
-    "acedata_flux_generate",
-    "acedata_flux_task"
+    "acedatacloud_flux_generate",
+    "acedatacloud_flux_task"
   ],
-  "toolset": "acedata-flux"
+  "toolset": "acedatacloud-flux"
 }

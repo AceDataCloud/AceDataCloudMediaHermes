@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-module_spec = importlib.util.spec_from_file_location('acedata_media_test', ROOT / '__init__.py',
+module_spec = importlib.util.spec_from_file_location('acedatacloud_media_test', ROOT / '__init__.py',
                                                    submodule_search_locations=[str(ROOT)])
 plugin = importlib.util.module_from_spec(module_spec)
 sys.modules[module_spec.name] = plugin
@@ -91,7 +91,9 @@ class RegistrationTests(unittest.TestCase):
         manifest = json.loads((ROOT / 'plugin.yaml').read_text())
         self.assertEqual(set(manifest['provides_tools']), set(self.ctx.tools))
         self.assertEqual(manifest['requires_env'], ['ACEDATACLOUD_API_KEY'])
-        for entry in self.ctx.tools.values():
+        for name, entry in self.ctx.tools.items():
+            self.assertTrue(name.startswith('acedatacloud_'), name)
+            self.assertTrue(entry['toolset'].startswith('acedatacloud-'), entry['toolset'])
             self.assertEqual(entry['requires_env'], ['ACEDATACLOUD_API_KEY'])
             self.assertNotIn('override', entry)
 

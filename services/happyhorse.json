@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Happy Horse",
   "kind": "video",
   "description": "Happy Horse text-to-video generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_happyhorse",
+  "tool_prefix": "acedatacloud_happyhorse",
   "generate_path": "/happyhorse/videos",
   "task_path": "/happyhorse/tasks",
   "defaults": {
@@ -77,10 +77,10 @@
       }
     }
   },
-  "generate_name": "acedata_happyhorse_generate",
+  "generate_name": "acedatacloud_happyhorse_generate",
   "tools": [
-    "acedata_happyhorse_generate",
-    "acedata_happyhorse_task"
+    "acedatacloud_happyhorse_generate",
+    "acedatacloud_happyhorse_task"
   ],
-  "toolset": "acedata-happyhorse"
+  "toolset": "acedatacloud-happyhorse"
 }

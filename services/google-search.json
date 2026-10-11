@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Google Search",
   "kind": "search",
   "description": "Google web and news search with links and snippets through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_google_search",
+  "tool_prefix": "acedatacloud_google_search",
   "generate_path": "/serp/google",
   "task_path": null,
   "defaults": {
@@ -89,9 +89,9 @@
       }
     }
   },
-  "generate_name": "acedata_google_search_search",
+  "generate_name": "acedatacloud_google_search_search",
   "tools": [
-    "acedata_google_search_search"
+    "acedatacloud_google_search_search"
   ],
-  "toolset": "acedata-google-search"
+  "toolset": "acedatacloud-google-search"
 }

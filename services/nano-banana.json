@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Nano Banana",
   "kind": "images",
   "description": "Image generation and HTTPS reference-image editing through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_nano_banana",
+  "tool_prefix": "acedatacloud_nano_banana",
   "generate_path": "/nano-banana/images",
   "task_path": "/nano-banana/tasks",
   "defaults": {
@@ -96,10 +96,10 @@
       }
     }
   },
-  "generate_name": "acedata_nano_banana_generate",
+  "generate_name": "acedatacloud_nano_banana_generate",
   "tools": [
-    "acedata_nano_banana_generate",
-    "acedata_nano_banana_task"
+    "acedatacloud_nano_banana_generate",
+    "acedatacloud_nano_banana_task"
   ],
-  "toolset": "acedata-nano-banana"
+  "toolset": "acedatacloud-nano-banana"
 }

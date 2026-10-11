@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Grok Video",
   "kind": "video",
   "description": "Grok Imagine fast text-to-video generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_grok",
+  "tool_prefix": "acedatacloud_grok",
   "generate_path": "/grok/videos",
   "task_path": "/grok/tasks",
   "defaults": {
@@ -77,10 +77,10 @@
       }
     }
   },
-  "generate_name": "acedata_grok_generate",
+  "generate_name": "acedatacloud_grok_generate",
   "tools": [
-    "acedata_grok_generate",
-    "acedata_grok_task"
+    "acedatacloud_grok_generate",
+    "acedatacloud_grok_task"
   ],
-  "toolset": "acedata-grok"
+  "toolset": "acedatacloud-grok"
 }

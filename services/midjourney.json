@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Midjourney",
   "kind": "image",
   "description": "Midjourney text-to-image generation through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_midjourney",
+  "tool_prefix": "acedatacloud_midjourney",
   "generate_path": "/midjourney/imagine",
   "task_path": "/midjourney/tasks",
   "defaults": {
@@ -59,10 +59,10 @@
       }
     }
   },
-  "generate_name": "acedata_midjourney_generate",
+  "generate_name": "acedatacloud_midjourney_generate",
   "tools": [
-    "acedata_midjourney_generate",
-    "acedata_midjourney_task"
+    "acedatacloud_midjourney_generate",
+    "acedatacloud_midjourney_task"
   ],
-  "toolset": "acedata-midjourney"
+  "toolset": "acedatacloud-midjourney"
 }

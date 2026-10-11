@@ -3,7 +3,7 @@
   "title": "Ace Data Cloud Veo",
   "kind": "video",
   "description": "Veo 3.1 Fast text-to-video and image-to-video through your Ace Data Cloud account.",
-  "tool_prefix": "acedata_veo",
+  "tool_prefix": "acedatacloud_veo",
   "generate_path": "/veo/videos",
   "task_path": "/veo/tasks",
   "defaults": {
@@ -67,10 +67,10 @@
       }
     }
   },
-  "generate_name": "acedata_veo_generate",
+  "generate_name": "acedatacloud_veo_generate",
   "tools": [
-    "acedata_veo_generate",
-    "acedata_veo_task"
+    "acedatacloud_veo_generate",
+    "acedatacloud_veo_task"
   ],
-  "toolset": "acedata-veo"
+  "toolset": "acedatacloud-veo"
 }

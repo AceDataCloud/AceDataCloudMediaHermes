@@ -14,16 +14,30 @@ supports them. Prompts and reference URLs go to **api.acedata.cloud**. Search an
 face analysis also use paid Credits. Enabling a service allows the agent to invoke
 its tools with your key; a schema limit is not a spending budget or confirmation.
 
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=acedatacloudmediahermes_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=acedatacloudmediahermes_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+
 ## Install and select services
 
 Requires Hermes **0.21.6 or newer**, an Ace Data Cloud key with the appropriate
 service access, and sufficient Credits. Check current pricing and obtain your key
-at [Ace Data Cloud](https://platform.acedata.cloud).
+using the [API key steps above](#get-your-ace-data-cloud-api-key).
 
 Install a reviewed version from its full 40-character source commit:
 
 ```sh
-hermes plugins install https://github.com/AceDataCloud/hermes-acedatacloud-media --ref <40-character-SHA> --enable
+hermes plugins install https://github.com/AceDataCloud/AceDataCloudMediaHermes --ref <40-character-SHA> --enable
 hermes config set ACEDATACLOUD_API_KEY '<your-api-key>'
 hermes tools
 ```

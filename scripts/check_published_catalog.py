@@ -63,12 +63,14 @@ def main():
                 installed[name] = {'sha': sha, 'tier': entry['tier'],
                                    'version': entry['version'], 'repo': entry['repo']}
 
-            import yaml
+            from ruamel.yaml import YAML
+            yaml = YAML()
             config_file = profile / 'config.yaml'
-            config = yaml.safe_load(config_file.read_text()) or {}
+            config = yaml.load(config_file.read_text()) or {}
             assert set(entries) <= set(config['plugins']['enabled']), config
             config['plugins']['isolation'] = mode
-            config_file.write_text(yaml.safe_dump(config))
+            with config_file.open('w') as stream:
+                yaml.dump(config, stream)
             media = profile / 'plugins' / 'acedatacloud-media'
             specs = [json.loads(p.read_text()) for p in (media / 'services').glob('*.json')]
             assert len(specs) == 17

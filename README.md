@@ -34,10 +34,11 @@ Requires Hermes **0.21.6 or newer**, an Ace Data Cloud key with the appropriate
 service access, and sufficient Credits. Check current pricing and obtain your key
 using the [API key steps above](#get-your-ace-data-cloud-api-key).
 
-Install a reviewed version from its full 40-character source commit:
+Install the reviewed version from the
+[official Hermes community catalog](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media):
 
 ```sh
-hermes plugins install https://github.com/AceDataCloud/AceDataCloudMediaHermes --ref <40-character-SHA> --enable
+hermes plugins install acedatacloud-media --enable
 hermes config set ACEDATACLOUD_API_KEY '<your-api-key>'
 hermes tools
 ```
@@ -53,10 +54,12 @@ hermes tools enable acedatacloud-suno
 hermes tools list
 ```
 
-When this plugin is available in the official catalog, install by name with
-`hermes plugins install acedatacloud-media --enable`. Catalog presence, installation
-and enabling toolsets are separate steps. This plugin does not modify your
-toolset preferences or approval settings.
+The catalog installs its reviewed source commit. To install a specific source
+version directly, use
+`hermes plugins install https://github.com/AceDataCloud/AceDataCloudMediaHermes --ref <40-character-SHA> --enable`.
+Source releases and catalog SHA updates are published separately. Catalog presence,
+installation and enabling toolsets are separate steps. This plugin does not modify
+your toolset preferences or approval settings.
 
 If you installed earlier standalone Ace media candidates, remove or disable them
 before enabling this plugin to avoid duplicate service integrations.

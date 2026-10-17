@@ -2,6 +2,10 @@
 
 ![Ace Data Cloud](assets/catalog.png)
 
+**Suno · Seedance · HappyHorse (Happy Horse) · GPT Image · Nano Banana**, provided
+through your **Ace Data Cloud** account. This is an Ace-maintained integration; it
+does not claim affiliation with the makers of those services.
+
 One plugin with 17 independently selectable service toolsets and a Nano Banana
 `image_generate` backend. The `acedatacloud` model provider remains a separate
 plugin. New services are released as version and catalog-pin updates to this
@@ -13,6 +17,38 @@ choose costly options, including pro models, 4K and up to 4 images where the ser
 supports them. Prompts and reference URLs go to **api.acedata.cloud**. Search and
 face analysis also use paid Credits. Enabling a service allows the agent to invoke
 its tools with your key; a schema limit is not a spending budget or confirmation.
+
+## Find your service
+
+Search the [official Hermes plugin catalog](https://hermes-agent.nousresearch.com/docs/plugins)
+for `suno`, `seedance`, `happyhorse`, `gpt_image` or `nano banana`, then install
+**Ace Data Cloud Media**, maintained by **AceDataCloud**. The catalog's current
+search also reads tool names: the published entry matches `gpt_image`, while
+natural-name search for `GPT Image` and `Happy Horse` awaits our catalog metadata
+update. A service name leads to this one package; it is not a separate catalog
+plugin. Never enter a bare `suno` installation command expecting this Ace adapter.
+
+| Service guide | Enable only this service | What it produces |
+| --- | --- | --- |
+| [Suno by Ace Data Cloud](docs/suno.md) | `hermes tools enable acedatacloud-suno` | Music/audio |
+| [Seedance by Ace Data Cloud](docs/seedance.md) | `hermes tools enable acedatacloud-seedance` | Video |
+| [HappyHorse by Ace Data Cloud](docs/happyhorse.md) | `hermes tools enable acedatacloud-happyhorse` | Video |
+| [GPT Image by Ace Data Cloud](docs/gpt-image.md) | `hermes tools enable acedatacloud-gpt-image` | Images |
+| [Nano Banana by Ace Data Cloud](docs/nano-banana.md) | `hermes tools enable acedatacloud-nano-banana` | Images/editing |
+
+Run `hermes tools` to inspect and disable any other selected service, then start a
+new session. Installing the package and selecting a service are separate steps.
+The native Image Generation backend has its own switch; see the Nano Banana guide.
+Hermes's maintainer [requires one catalog entry for this product line](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033),
+with per-service selection through toolsets. We keep one transport/schema source
+and service-specific guides instead of duplicate standalone catalog entries.
+
+![Edited preview of the Hermes model picker with Ace; not an actual runtime screenshot](assets/tutorial/hermes-model-picker-preview.png)
+
+**Official-screenshot edit preview, not an Ace execution screenshot.** Edited
+2026-10-17 from the official historical v0.11.0 screenshot (capture date unknown).
+It illustrates the provider/model picker after installation, not default bundling,
+new paid calls or current GUI validation. [Source and limits](assets/tutorial/SOURCE.md).
 
 ## Get your Ace Data Cloud API key
 

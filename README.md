@@ -170,7 +170,7 @@ python -m unittest discover -s tests -v
 hermes plugins validate . --install-deps
 ```
 
-CI uses official Hermes 0.21.6 and its locked dependency environment. Unit tests
+CI uses official Hermes 0.21.6 and 0.22.2 with each release's locked dependencies. Unit tests
 make no API calls. `scripts/check_runtime.py` tests real plugin discovery,
 per-service selection, scoped credential availability, dispatch and the native
 image provider in a fresh profile, including host isolation, without paid calls.

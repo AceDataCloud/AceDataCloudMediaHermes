@@ -13,7 +13,7 @@ hermes plugins search "Suno"
 hermes plugins install acedatacloud-media --enable
 ```
 
-最低Hermes0.21.6，当前官方审核媒体包2.0.1。官方网页品牌搜索已于2026-10-18更新；已有profile缓存可能保留6小时。
+最低Hermes0.21.6，本仓库版本2.0.2；官方目录独立固定审核commit，请以目录当前版本与SHA为准。官方网页品牌搜索已于2026-10-18更新；已有profile缓存可能保留6小时。
 
 ![2026-10-18正式Hermes目录搜索Suno的真实截图](../assets/tutorial/hermes-suno-search.jpg)
 
@@ -82,4 +82,4 @@ hermes tools
 - v1升级到v2后所有工具名前缀为`acedatacloud_`、toolsets为`acedatacloud-`，旧名不作别名；重选服务并开新会话，既有task ID继续可查。
 - [当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_media_zh_readme_pricing)与账户实际package/账单为准，不复制历史USD价。
 
-此中文稿及五项中英服务指引仍在源PR#5中，未合并发布；当前官方版本仍2.0.1。源merge不等于市场更新，须发版并通过新官方审核pin。0.21.6/0.22.2免费安装与schema验证、历史生成和账单证据分别记录；本轮未发新付费请求。
+本中文指南及五项中英服务指引随源码版本2.0.2提供。GitHub源码发布与官方目录审核pin分开；按名称安装仍取目录当前固定commit，只有目录采用此版本后用户才会获得新稿。升级前检查目录版本/SHA，再运行`hermes plugins update acedatacloud-media`，复查服务选择并开始新会话。0.21.6/0.22.2免费安装/schema证据、历史生成和账单分别记录；本文没有发新付费请求。

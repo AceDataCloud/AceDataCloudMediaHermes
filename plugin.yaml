@@ -1,6 +1,6 @@
 {
   "name": "acedatacloud-media",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Suno, Seedance, HappyHorse (Happy Horse), GPT Image and Nano Banana by Ace Data Cloud; 17 selectable service toolsets and a Nano Banana image_generate backend. Each generate call spends Ace Data Cloud credits on your ACEDATACLOUD_API_KEY with no Hermes approval prompt; the model can choose costly options (pro models, 4K, up to 4 images), and prompts and reference URLs go to api.acedata.cloud. Google Search and face analysis also spend Credits.",
   "author": "AceDataCloud",
   "requires_hermes": ">=0.21.6",

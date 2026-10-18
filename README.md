@@ -1,5 +1,7 @@
 # Ace Data Cloud Media for Hermes
 
+[简体中文使用指南](readme/README_zh_Hans.md)
+
 ![Ace Data Cloud](assets/catalog.png)
 
 **Suno · Seedance · HappyHorse (Happy Horse) · GPT Image · Nano Banana**, provided
@@ -49,6 +51,11 @@ and service-specific guides instead of duplicate standalone catalog entries.
 2026-10-17 from the official historical v0.11.0 screenshot (capture date unknown).
 It illustrates the provider/model picker after installation, not default bundling,
 new paid calls or current GUI validation. [Source and limits](assets/tutorial/SOURCE.md).
+
+![Real Hermes official catalog search for Suno, captured2026-10-18](assets/tutorial/hermes-suno-search.jpg)
+
+This real official catalog screenshot shows service-name discovery of the single
+Ace-maintained media package2.0.1. It is not a media-generation result. [Provenance](assets/tutorial/SOURCE.md).
 
 ## Get your Ace Data Cloud API key
 

@@ -18,6 +18,13 @@ hermes plugins install acedatacloud-media --enable
 Requires Hermes 0.21.6 or newer. The current reviewed media version is 2.0.1; source
 README updates appear in the catalog only after a reviewed source-pin update.
 
+![Real official Hermes catalog search for Seedance](../assets/tutorial/hermes-seedance-search.jpg)
+
+Real production catalog screenshot captured2026-10-18, showing one AceDataCloud
+media listing at2.0.1/eee9a15. This proves service-name discovery, not a separate
+service package, a paid run or default bundling. [Image provenance](../assets/tutorial/SOURCE.md).
+[简体中文](zh-CN/seedance.md)
+
 ## 2. Register or sign in and copy an API Token
 
 1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_seedance_guide_api_key), register or sign in.

@@ -13,7 +13,7 @@ hermes plugins search "Happy Horse"
 hermes plugins install acedatacloud-media --enable
 ```
 
-最低Hermes0.21.6；目前官方审核包2.0.1。维护者[明确要求这一产品线只有一个目录项](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)，各服务使用独立开关；不是五个独立下载安装包。
+最低Hermes0.21.6；本文随源码版本2.0.2提供，目录独立固定审核commit，请核其当前版本/SHA。维护者[明确要求这一产品线只有一个目录项](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)，各服务使用独立开关；不是五个独立下载安装包。
 
 ![2026-10-18正式Hermes目录搜索HappyHorse（Happy Horse）的真实截图](../../assets/tutorial/hermes-happy-horse-search.jpg)
 
@@ -88,4 +88,4 @@ hermes tools
 - **一直pending/查询失败**：保留原任务ID查请求历史，不重新生成。
 - **费用疑问**：[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_happyhorse_guide_pricing)和账户实际套餐/账单为准，不复制旧USD单价。
 
-本中文源稿需随源PR合并、发布并更新官方审核版本后才会出现在正式安装文档；不能把当前候选说明当已发布。
+本中文指南随源码版本2.0.2提供；GitHub发布与Hermes目录审核pin分开，按名称安装取得目录当前固定commit。只有该commit包含此版本时，用户安装文档才会更新。升级前检查目录版本与SHA，本文不把源码发布等同目录已更新。

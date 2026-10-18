@@ -15,8 +15,10 @@ so there is no separately reviewed `gpt-image` Ace catalog package.
 hermes plugins install acedatacloud-media --enable
 ```
 
-Requires Hermes 0.21.6 or newer. The current reviewed media version is 2.0.1; source
-README updates appear in the catalog only after a reviewed source-pin update.
+Requires Hermes 0.21.6 or newer. This guide ships with source version2.0.2.
+The official catalog independently pins a reviewed commit; check its current
+version and SHA before installing or updating. Source publication alone does not
+change what a catalog installation receives.
 
 ![Real official Hermes catalog search for GPT Image](../assets/tutorial/hermes-gpt-image-search.jpg)
 

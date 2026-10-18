@@ -50,6 +50,11 @@ def main():
 
             version = run('-m', 'hermes_cli.main', '--version')
             search = run('-m', 'hermes_cli.main', 'plugins', 'search', 'acedatacloud')
+            brand_search = {}
+            for term in ['Suno', 'Seedance', 'Happy Horse', 'GPT Image', 'Nano Banana']:
+                result = run('-m', 'hermes_cli.main', 'plugins', 'search', term)
+                assert 'acedatacloud-media' in result, (term, result)
+                brand_search[term] = 'acedatacloud-media'
             installed = {}
             for name, entry in entries.items():
                 assert name in search, search
@@ -97,6 +102,7 @@ assert set(p.fallback_models) == {'gpt-4.1-mini', 'gpt-4.1'}
                 'published_catalog_install': 'passed', 'mode': mode,
                 'host_sha': hermes_sha, 'host_version_display': version.strip(),
                 'installed': installed, 'services': 17, 'tools': 32,
+                'brand_search': brand_search,
                 'paid_calls': 0,
             }), flush=True)
 

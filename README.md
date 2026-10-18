@@ -21,11 +21,11 @@ its tools with your key; a schema limit is not a spending budget or confirmation
 ## Find your service
 
 Search the [official Hermes plugin catalog](https://hermes-agent.nousresearch.com/docs/plugins)
-for `suno`, `seedance`, `happyhorse`, `gpt_image` or `nano banana`, then install
-**Ace Data Cloud Media**, maintained by **AceDataCloud**. The catalog's current
-search also reads tool names: the published entry matches `gpt_image`, while
-natural-name search for `GPT Image` and `Happy Horse` awaits our catalog metadata
-update. A service name leads to this one package; it is not a separate catalog
+for `Suno`, `Seedance`, `Happy Horse`, `GPT Image` or `Nano Banana`, then install
+**Ace Data Cloud Media**, maintained by **AceDataCloud**. These natural service
+names are included in the official catalog description, published on 2026-10-18.
+The catalog also searches declared tool names, such as `gpt_image`. A service name
+leads to this one package; it is not a separate catalog
 plugin. Never enter a bare `suno` installation command expecting this Ace adapter.
 
 | Service guide | Enable only this service | What it produces |

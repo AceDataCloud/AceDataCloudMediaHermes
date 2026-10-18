@@ -123,8 +123,10 @@ registration evidence, not a new paid GPT Image generation.
 ## Troubleshooting
 
 - **No search result for a natural service name:** try `gpt_image` and confirm
-  the maintainer and `acedatacloud-media` entry. `GPT Image`/`Happy Horse` description
-  improvements require the pending official catalog metadata change.
+  the maintainer and `acedatacloud-media` entry. The official description has
+  included natural service names since 2026-10-18. An existing Hermes profile may
+  retain its catalog cache for up to six hours; check the official catalog page
+  before treating a cached missing result as an unavailable service.
 - **Tools missing:** confirm the plugin and `acedatacloud-gpt-image` are enabled in this profile,
   the token exists there, and a new session was started. `hermes tools list` shows selection.
 - **Authentication/balance error:** check the raw token, service/API allowlist,

@@ -1,6 +1,12 @@
 # Ace Data Cloud Media for Hermes
 
+[简体中文使用指南](readme/README_zh_Hans.md)
+
 ![Ace Data Cloud](assets/catalog.png)
+
+**Suno · Seedance · HappyHorse (Happy Horse) · GPT Image · Nano Banana**, provided
+through your **Ace Data Cloud** account. This is an Ace-maintained integration; it
+does not claim affiliation with the makers of those services.
 
 One plugin with 17 independently selectable service toolsets and a Nano Banana
 `image_generate` backend. The `acedatacloud` model provider remains a separate
@@ -13,6 +19,43 @@ choose costly options, including pro models, 4K and up to 4 images where the ser
 supports them. Prompts and reference URLs go to **api.acedata.cloud**. Search and
 face analysis also use paid Credits. Enabling a service allows the agent to invoke
 its tools with your key; a schema limit is not a spending budget or confirmation.
+
+## Find your service
+
+Search the [official Hermes plugin catalog](https://hermes-agent.nousresearch.com/docs/plugins)
+for `Suno`, `Seedance`, `Happy Horse`, `GPT Image` or `Nano Banana`, then install
+**Ace Data Cloud Media**, maintained by **AceDataCloud**. These natural service
+names are included in the official catalog description, published on 2026-10-18.
+The catalog also searches declared tool names, such as `gpt_image`. A service name
+leads to this one package; it is not a separate catalog
+plugin. Never enter a bare `suno` installation command expecting this Ace adapter.
+
+| Service guide | Enable only this service | What it produces |
+| --- | --- | --- |
+| [Suno by Ace Data Cloud](docs/suno.md) | `hermes tools enable acedatacloud-suno` | Music/audio |
+| [Seedance by Ace Data Cloud](docs/seedance.md) | `hermes tools enable acedatacloud-seedance` | Video |
+| [HappyHorse by Ace Data Cloud](docs/happyhorse.md) | `hermes tools enable acedatacloud-happyhorse` | Video |
+| [GPT Image by Ace Data Cloud](docs/gpt-image.md) | `hermes tools enable acedatacloud-gpt-image` | Images |
+| [Nano Banana by Ace Data Cloud](docs/nano-banana.md) | `hermes tools enable acedatacloud-nano-banana` | Images/editing |
+
+Run `hermes tools` to inspect and disable any other selected service, then start a
+new session. Installing the package and selecting a service are separate steps.
+The native Image Generation backend has its own switch; see the Nano Banana guide.
+Hermes's maintainer [requires one catalog entry for this product line](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033),
+with per-service selection through toolsets. We keep one transport/schema source
+and service-specific guides instead of duplicate standalone catalog entries.
+
+![Edited preview of the Hermes model picker with Ace; not an actual runtime screenshot](assets/tutorial/hermes-model-picker-preview.png)
+
+**Official-screenshot edit preview, not an Ace execution screenshot.** Edited
+2026-10-17 from the official historical v0.11.0 screenshot (capture date unknown).
+It illustrates the provider/model picker after installation, not default bundling,
+new paid calls or current GUI validation. [Source and limits](assets/tutorial/SOURCE.md).
+
+![Real Hermes official catalog search for Suno, captured2026-10-18](assets/tutorial/hermes-suno-search.jpg)
+
+This real official catalog screenshot shows service-name discovery of the single
+Ace-maintained media package2.0.1. It is not a media-generation result. [Provenance](assets/tutorial/SOURCE.md).
 
 ## Get your Ace Data Cloud API key
 
@@ -34,10 +77,11 @@ Requires Hermes **0.21.6 or newer**, an Ace Data Cloud key with the appropriate
 service access, and sufficient Credits. Check current pricing and obtain your key
 using the [API key steps above](#get-your-ace-data-cloud-api-key).
 
-Install a reviewed version from its full 40-character source commit:
+Install the reviewed version from the
+[official Hermes community catalog](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media):
 
 ```sh
-hermes plugins install https://github.com/AceDataCloud/AceDataCloudMediaHermes --ref <40-character-SHA> --enable
+hermes plugins install acedatacloud-media --enable
 hermes config set ACEDATACLOUD_API_KEY '<your-api-key>'
 hermes tools
 ```
@@ -53,10 +97,12 @@ hermes tools enable acedatacloud-suno
 hermes tools list
 ```
 
-When this plugin is available in the official catalog, install by name with
-`hermes plugins install acedatacloud-media --enable`. Catalog presence, installation
-and enabling toolsets are separate steps. This plugin does not modify your
-toolset preferences or approval settings.
+The catalog installs its reviewed source commit. To install a specific source
+version directly, use
+`hermes plugins install https://github.com/AceDataCloud/AceDataCloudMediaHermes --ref <40-character-SHA> --enable`.
+Source releases and catalog SHA updates are published separately. Catalog presence,
+installation and enabling toolsets are separate steps. This plugin does not modify
+your toolset preferences or approval settings.
 
 If you installed earlier standalone Ace media candidates, remove or disable them
 before enabling this plugin to avoid duplicate service integrations.
@@ -167,7 +213,7 @@ python -m unittest discover -s tests -v
 hermes plugins validate . --install-deps
 ```
 
-CI uses official Hermes 0.21.6 and its locked dependency environment. Unit tests
+CI uses official Hermes 0.21.6 and 0.22.2 with each release's locked dependencies. Unit tests
 make no API calls. `scripts/check_runtime.py` tests real plugin discovery,
 per-service selection, scoped credential availability, dispatch and the native
 image provider in a fresh profile, including host isolation, without paid calls.

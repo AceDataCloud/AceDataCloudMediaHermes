@@ -45,6 +45,11 @@ Hermes's maintainer [requires one catalog entry for this product line](https://g
 with per-service selection through toolsets. We keep one transport/schema source
 and service-specific guides instead of duplicate standalone catalog entries.
 
+For a source-only Git install registering just one service, see
+[generated single-service profiles](docs/source-profiles.md). These variants share
+this canonical transport and operation contract, use distinct tool names, and do
+not add official catalog entries. Choose one enabled integration per service.
+
 ![Edited preview of the Hermes model picker with Ace; not an actual runtime screenshot](assets/tutorial/hermes-model-picker-preview.png)
 
 **Official-screenshot edit preview, not an Ace execution screenshot.** Edited

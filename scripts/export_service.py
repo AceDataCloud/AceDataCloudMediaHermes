@@ -59,7 +59,7 @@ def build(service, source_ref):
         image = image.replace('acedatacloud_nano_banana_task', prefix + '_task')
         image = image.replace("'https://platform.acedata.cloud'", repr(application))
     files = {
-        '__init__.py': (ROOT / 'profiles/entrypoint.py').read_bytes(),
+        '__init__.py': (ROOT / '__init__.py').read_bytes(),
         'client.py': (ROOT / 'client.py').read_bytes(),
         'image_provider.py': image.encode(),
         'services/' + service + '.json': encoded(spec),

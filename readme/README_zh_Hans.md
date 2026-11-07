@@ -83,3 +83,7 @@ hermes tools
 - [当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_media_zh_readme_pricing)与账户实际package/账单为准，不复制历史USD价。
 
 本中文指南及五项中英服务指引随源码版本2.0.2提供。GitHub源码发布与官方目录审核pin分开；按名称安装仍取目录当前固定commit，只有目录采用此版本后用户才会获得新稿。升级前检查目录版本/SHA，再运行`hermes plugins update acedatacloud-media`，复查服务选择并开始新会话。0.21.6/0.22.2免费安装/schema证据、历史生成和账单分别记录；本文没有发新付费请求。
+
+## 单服务 Git 源码变体
+
+如需一次 Git 安装只注册一个服务，参见[统一生成的单服务源码变体](../docs/source-profiles.md)。变体复用本仓唯一维护的 transport 和操作契约，使用可区分的工具名称；不会新增官方目录条目。相同服务只启用一种集成，避免重复生成。

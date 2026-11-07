@@ -42,8 +42,8 @@ class RegistrationTests(unittest.TestCase):
         plugin.register(self.ctx)
 
     def test_every_registered_handler_routes_its_own_service(self):
-        self.assertEqual(len(self.ctx.tools), 32)
-        self.assertEqual(len({t['toolset'] for t in self.ctx.tools.values()}), 17)
+        self.assertEqual(len(self.ctx.tools), sum(len(s['tools']) for s in plugin.SERVICES))
+        self.assertEqual(len({t['toolset'] for t in self.ctx.tools.values()}), len(plugin.SERVICES))
         for spec in plugin.SERVICES:
             with self.subTest(service=spec['service']):
                 args = {k: 'https://example.com/a.jpg' if k.endswith('_url') else 'test'
@@ -71,6 +71,8 @@ class RegistrationTests(unittest.TestCase):
                     self.assertTrue(result['success'])
 
     def test_nano_native_provider_uses_same_task_client(self):
+        if not any(s['service'] == 'nano-banana' for s in plugin.SERVICES):
+            self.skipTest('No native image provider in this service profile')
         self.assertEqual(len(self.ctx.providers), 1)
         provider = self.ctx.providers[0]
         responses = [{'task_id': 'image-task'}, {'finished_at': 123, 'response': {
@@ -98,7 +100,9 @@ class RegistrationTests(unittest.TestCase):
             self.assertNotIn('override', entry)
 
     def test_invalid_reference_inputs_never_submit(self):
-        spec = next(s for s in plugin.SERVICES if s['service'] == 'nano-banana')
+        spec = next((s for s in plugin.SERVICES if s['service'] == 'nano-banana'), None)
+        if spec is None:
+            self.skipTest('No Nano Banana in this service profile')
         oversized = 'https://example.com/' + 'a' * 2048
         for url in [oversized, 'https://example.com:bad/image', 'https://example.com/a\nb']:
             with self.subTest(url=url[:50]), patch.object(plugin.client, 'request') as request:

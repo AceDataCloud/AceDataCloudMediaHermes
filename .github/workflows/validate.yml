@@ -8,15 +8,13 @@ jobs:
     strategy:
       matrix:
         hermes:
-          - version: '0.21.6'
-            sha: '818c13be1dc4fd28987e1e881a9408224afd4535'
-          - version: '0.22.2'
-            sha: 'd923a5eb487a17c0a68801bba9ef0f56c81040a8'
+          - version: '0.23.0'
+            sha: '2bd378ed1b8d6bf2192cb26e0a55ff3091e6bd19'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Unit contracts (no paid requests)
         run: python3 -m unittest discover -s tests -v
-      - uses: NousResearch/hermes-agent/.github/actions/plugin-validate@d923a5eb487a17c0a68801bba9ef0f56c81040a8
+      - uses: NousResearch/hermes-agent/.github/actions/plugin-validate@2bd378ed1b8d6bf2192cb26e0a55ff3091e6bd19
         with:
           path: ${{ github.workspace }}
           hermes-ref: ${{ matrix.hermes.sha }}

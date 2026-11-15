@@ -56,3 +56,10 @@ class ExportServiceTests(unittest.TestCase):
                 images = re.findall(r'assets/tutorial/(hermes-[^ )]+\.jpg)', files[name].decode())
                 self.assertEqual(len(images), 1)
                 self.assertTrue((ROOT / 'assets/tutorial' / images[0]).exists(), images[0])
+
+    def test_paid_disclosure_does_not_assert_task_retrieval_is_charged(self):
+        for service in exporter.SERVICES:
+            files = exporter.build(service, 'a' * 40)
+            self.assertIn('The primary operation spends paid Credits', files['README.md'].decode())
+            self.assertNotIn('Every operation spends paid Credits', files['README.md'].decode())
+            self.assertIn('主操作立即消耗 Credits', files['readme/README_zh_Hans.md'].decode())

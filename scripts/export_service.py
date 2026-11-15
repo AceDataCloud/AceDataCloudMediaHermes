@@ -60,7 +60,7 @@ def build(service, source_ref):
     manifest = {
         'name': plugin_name, 'version': '1.0.0', 'author': 'AceDataCloud',
         'description': f'{title} by Ace Data Cloud: source-only single-service Git plugin. '
-                       'Calls spend paid Credits without a Hermes approval prompt; model options can increase cost. '
+                       'The primary operation spends paid Credits without a Hermes approval prompt; model options can increase cost. '
                        'Prompts/reference URLs go to api.acedata.cloud. Never automatically retry a paid request.',
         'requires_hermes': '>=' + HOST_VERSION, 'provides_tools': spec['tools'],
         'requires_env': ['ACEDATACLOUD_API_KEY'],
@@ -190,7 +190,7 @@ source Git route; do not use a bare service name expecting a separate catalog en
 
 ![Applications API key guide, sourced from existing Ace documentation](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-**Every operation spends paid Credits without a Hermes approval prompt.** The
+**The primary operation spends paid Credits without a Hermes approval prompt.** The
 model may choose costly model/resolution/count options where the service supports
 them. Prompts and reference URLs go to **api.acedata.cloud**. Enabling tools permits
 their use with your key; schema constraints are not a spending budget. There is
@@ -256,7 +256,7 @@ hermes tools list
 
 ![应用密钥获取指引（英文界面原图），来源于已有 Ace 文档](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-**每次操作立即消耗 Credits，不会出现 Hermes 审批提示。** 模型可以选择服务支持的高价模型、分辨率或数量选项。提示词和参考 URL 发送至 `api.acedata.cloud`。启用即允许模型使用密钥调用，schema 限制不等于预算。收费请求**不自动重试**；超时或送达未知时先查请求历史。{recover_zh}
+**主操作立即消耗 Credits，不会出现 Hermes 审批提示。** 模型可以选择服务支持的高价模型、分辨率或数量选项。提示词和参考 URL 发送至 `api.acedata.cloud`。启用即允许模型使用密钥调用，schema 限制不等于预算。收费请求**不自动重试**；超时或送达未知时先查请求历史。{recover_zh}
 
 ## 工具与共装
 

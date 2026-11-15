@@ -22,7 +22,7 @@ class SourceProfileTests(unittest.TestCase):
     def test_does_not_override_official_names(self):
         self.assertTrue(all(x.startswith('acedatacloud_single_') for x in SPEC['tools']))
         self.assertTrue(SPEC['toolset'].startswith('acedatacloud-single-'))
-        self.assertEqual(len(SPEC['tools']), 2)
+        self.assertEqual(len(SPEC['tools']), 2 if SPEC.get('task_path') else 1)
 
     def test_reference_guards_before_submission(self):
         properties = SPEC['generate_schema']['properties']
@@ -30,7 +30,16 @@ class SourceProfileTests(unittest.TestCase):
             if field not in properties:
                 continue
             for value in ('https://example.com:bad/a.png', 'https://example.com/a\nb.png', 'https://example.com/a b.png'):
-                args = {'prompt': 'test', field: [value] if properties[field]['type'] == 'array' else value}
+                args = {k: 'https://example.com/a.png' if k.endswith('_url') else 'test'
+                        for k in SPEC['generate_schema'].get('required', [])}
+                if 'prompt' in properties:
+                    args['prompt'] = 'test'
+                valid_url = 'https://example.com/a.png'
+                args[field] = [valid_url] if properties[field]['type'] == 'array' else valid_url
+                # Ensure rejection is specifically caused by the bad reference,
+                # rather than an unrelated missing/unknown parameter (e.g. Face).
+                client.validate(args, SPEC['generate_schema'])
+                args[field] = [value] if properties[field]['type'] == 'array' else value
                 with self.subTest(field=field, value=value), patch('client.request') as request:
                     with self.assertRaises(ValueError):
                         client.MediaClient(SPEC).generate(args)

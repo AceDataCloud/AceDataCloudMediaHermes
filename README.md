@@ -238,3 +238,6 @@ No third-party Python dependencies are added. `assets/logo.png` is the unmodifie
 The transparent 1200×600 catalog image preserves the complete logo proportionally.
 AI-assisted implementation using Codex; validation is documented in the source PR.
 MIT licensed.
+
+Search and face analysis are synchronous paid tools, with no task-query tool.
+No paid operation is automatically retried; async generation recovers by the same task ID.

@@ -61,6 +61,12 @@ class RegistrationTests(unittest.TestCase):
                 self.assertEqual(result['status'], 'pending' if spec['task_path'] else 'succeeded')
                 self.assertIn('without a Hermes approval prompt',
                               self.ctx.tools[spec['generate_name']]['schema']['description'])
+                description = self.ctx.tools[spec['generate_name']]['schema']['description']
+                if spec['task_path']:
+                    self.assertIn('Never automatically resubmit generation', description)
+                else:
+                    self.assertIn('no task-query tool', description)
+                    self.assertIn('Never automatically retry a paid request', description)
                 if spec['task_path']:
                     key = 'audio_url' if spec['kind'] == 'audio' else 'video_url' if spec['kind'] == 'video' else 'image_url'
                     response = {'finished_at': 123, 'response': {'success': True, 'data': [{key: 'https://example.com/media'}]}}

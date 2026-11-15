@@ -2,8 +2,10 @@
 
 The official catalog remains one `acedatacloud-media` product line, with per-service
 toolset selection. A custom Git source install can instead register only one
-service's two tools. The first supported profiles are Suno, Seedance, Happy Horse,
-GPT Image and Nano Banana. No extra official listings are proposed.
+service's minimal toolset. All 17 canonical services have source profiles. Face
+analysis and Google Search each expose one synchronous paid tool; the other 15
+profiles expose generation and same-ID task lookup. No extra official listings
+are proposed.
 
 This repository is the only maintained transport/contract source. From an exact
 canonical commit, run:
@@ -23,7 +25,7 @@ its minimal Git installation route is retained.
 Generated `source-lock.json` records the immutable source commit, transport hash,
 operation-contract hash, identity map and generated file hashes. Consumer CI
 checks out that exact source and compares the exporter output, then runs normal
-unittest discovery and official Hermes validation. Runtime fixes belong here,
+unittest discovery and official Hermes 0.23.1 validation. Runtime fixes belong here,
 followed by deliberate regeneration; consumer transport is not edited by hand.
 
 Names use `acedatacloud_single_` and `acedatacloud-single-` to avoid overwriting
@@ -43,3 +45,10 @@ real-host dispatch uses invalid parameters. Screenshots retain their original
 transport 副本。历史候选 spec/测试/实测证据移入 history 保留。收费行为、无审批
 提示、不自动重试、同 ID 恢复、Applications 专用 Token、四字段 UTM 和双语图文
 均在生成文档中明确；不把源码合并写成官方收录、默认内置或收费 E2E。
+
+The exporter uses only existing dated catalog images and labels them as the shared
+media entry, not proof of a new source profile or unverified service-name search.
+
+中文：17 个服务均支持单服务 Git 安装。Face / Google Search 为单个同步收费工具，
+没有任务查询；其余服务为生成和同 ID 查询两个工具。当前新输出锁定 Hermes 0.23.1
+验收，旧 Top5 的不可变来源锁与原测试日期继续保留，不把它们改写成今日新验收。

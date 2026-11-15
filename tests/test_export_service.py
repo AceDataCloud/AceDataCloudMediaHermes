@@ -23,7 +23,7 @@ class ExportServiceTests(unittest.TestCase):
                     self.assertEqual(contract[field], source[field])
                 self.assertEqual(files['client.py'], (ROOT / 'client.py').read_bytes())
                 self.assertEqual(len([p for p in files if p.startswith('services/')]), 1)
-                self.assertEqual(len(contract['tools']), 2)
+                self.assertEqual(len(contract['tools']), 2 if source.get('task_path') else 1)
                 self.assertFalse(set(contract['tools']) & set(source['tools']))
                 self.assertIn('PLUGIN_SOURCE_REF:', files['.github/workflows/validate.yml'].decode())
                 self.assertIn('ref: ' + 'a' * 40, files['.github/workflows/validate.yml'].decode())
@@ -34,3 +34,25 @@ class ExportServiceTests(unittest.TestCase):
         self.assertIn("return 'acedatacloud-single-nano-banana'", image)
         self.assertIn('acedatacloud_single_nano_banana_task', image)
         self.assertIn('/console/applications?', image)
+
+    def test_all_canonical_services_have_source_profiles(self):
+        expected = {p.stem for p in (ROOT / 'services').glob('*.json')}
+        self.assertEqual(set(exporter.SERVICES), expected)
+
+    def test_synchronous_profiles_have_one_tool_and_truthful_recovery(self):
+        for service in ('face', 'google-search'):
+            files = exporter.build(service, 'a' * 40)
+            manifest = json.loads(files['plugin.yaml'])
+            self.assertEqual(len(manifest['provides_tools']), 1)
+            self.assertFalse(any(name.endswith('_task') for name in manifest['provides_tools']))
+            self.assertIn('There is no task-query tool', files['README.md'].decode())
+            self.assertIn('没有任务查询工具', files['readme/README_zh_Hans.md'].decode())
+
+    def test_documented_historical_images_exist(self):
+        import re
+        for service in exporter.SERVICES:
+            files = exporter.build(service, 'a' * 40)
+            for name in ('README.md', 'readme/README_zh_Hans.md'):
+                images = re.findall(r'assets/tutorial/(hermes-[^ )]+\.jpg)', files[name].decode())
+                self.assertEqual(len(images), 1)
+                self.assertTrue((ROOT / 'assets/tutorial' / images[0]).exists(), images[0])

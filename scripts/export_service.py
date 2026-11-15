@@ -12,13 +12,26 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = 'https://github.com/AceDataCloud/AceDataCloudMediaHermes'
-HOST = '2bd378ed1b8d6bf2192cb26e0a55ff3091e6bd19'
+HOST = '3b421578588243f920886e6fe79a6faa87ea026e'
+HOST_VERSION = '0.23.1'
 SERVICES = {
     'suno': ('Suno', 'SunoHermes'),
     'seedance': ('Seedance', 'SeedanceHermes'),
     'happyhorse': ('Happy Horse', 'HappyHorseHermes'),
     'gpt-image': ('GPT Image', 'GPTImageHermes'),
     'nano-banana': ('Nano Banana', 'NanoBananaHermes'),
+    'face': ('Face Analysis', 'FaceHermes'),
+    'fish': ('Fish Audio', 'FishAudioHermes'),
+    'flux': ('FLUX', 'FluxHermes'),
+    'google-search': ('Google Search', 'GoogleSearchHermes'),
+    'grok': ('Grok Video', 'GrokHermes'),
+    'kling': ('Kling', 'KlingHermes'),
+    'midjourney': ('Midjourney', 'MidjourneyHermes'),
+    'minimax': ('MiniMax H3', 'MiniMaxHermes'),
+    'qwen-image': ('Qwen Image', 'QwenImageHermes'),
+    'seedream': ('Seedream', 'SeedreamHermes'),
+    'veo': ('Veo', 'VeoHermes'),
+    'wan': ('Wan', 'WanHermes'),
 }
 
 
@@ -48,8 +61,8 @@ def build(service, source_ref):
         'name': plugin_name, 'version': '1.0.0', 'author': 'AceDataCloud',
         'description': f'{title} by Ace Data Cloud: source-only single-service Git plugin. '
                        'Calls spend paid Credits without a Hermes approval prompt; model options can increase cost. '
-                       'Prompts/reference URLs go to api.acedata.cloud. Never automatically resubmit generation.',
-        'requires_hermes': '>=0.23.0', 'provides_tools': spec['tools'],
+                       'Prompts/reference URLs go to api.acedata.cloud. Never automatically retry a paid request.',
+        'requires_hermes': '>=' + HOST_VERSION, 'provides_tools': spec['tools'],
         'requires_env': ['ACEDATACLOUD_API_KEY'],
     }
     image = (ROOT / 'image_provider.py').read_text()
@@ -108,7 +121,25 @@ jobs:
 '''.replace('ref: SOURCE_REF', 'ref: ' + source_ref).replace('SERVICE', service).replace('HOST_REF', HOST)
     # Keep the canonical checkout out of normal plugin discovery and packaging.
     files['.github/workflows/validate.yml'] = workflow.encode()
-    screenshot = f'{REPO}/raw/8eaebfb86152d754061375de881548bfa096dd2d/assets/tutorial/hermes-{service if service != "happyhorse" else "happy-horse"}-search.jpg'
+    has_task = bool(spec.get('task_path'))
+    tool_count = len(spec['tools'])
+    task_en = (f'- Query an existing task: `{prefix}_task`, with `task_id` and optional '
+               '`wait_seconds` (0–60). Pending/preview media is not final success.'
+               if has_task else
+               '- This service returns a synchronous result. There is no task-query tool or task polling.')
+    task_zh = (f'已有任务查询工具为 `{prefix}_task`，传入 `task_id` 及可选 '
+               '`wait_seconds`（0–60）；pending/预览媒体不视为终态成功。'
+               if has_task else
+               '此服务同步返回结果，只有一个收费操作工具，没有任务查询工具或轮询。')
+    recover_en = ('Recover pending work with the same task ID; task lookup never creates a generation.'
+                  if has_task else
+                  'A synchronous search or analysis is also paid; do not assume an automatic retry is free.')
+    recover_zh = ('使用同一任务 ID 恢复 pending 任务，查询不会新建生成。'
+                  if has_task else
+                  '同步搜索和分析同样收费，不能将自动重试视为免费，也不存在任务查询能力。')
+    screenshot_service = service if service in {'suno', 'seedance', 'happyhorse', 'gpt-image', 'nano-banana'} else 'gpt-image'
+    screenshot_file = 'happy-horse' if screenshot_service == 'happyhorse' else screenshot_service
+    screenshot = f'{REPO}/raw/8eaebfb86152d754061375de881548bfa096dd2d/assets/tutorial/hermes-{screenshot_file}-search.jpg'
     native = ('The native image backend is `acedatacloud-single-nano-banana`; the official media backend '
               'remains `acedatacloud-nano-banana`. Select only the backend you intend to use.'
               if service == 'nano-banana' else 'This variant registers no native image backend.')
@@ -116,26 +147,34 @@ jobs:
 
 [简体中文](readme/README_zh_Hans.md)
 
-A source-only single-service Git installation: **only {title}'s two tools** are
-registered. Maintained by Ace Data Cloud; no affiliation with the service maker
-is implied. Requires Hermes **0.23.0+**. This is an alternative to selecting the
-same service in the official **Ace Data Cloud Media** package.
+{spec['description']}
+
+A source-only single-service Git installation: **only {title}'s {tool_count} tool(s)**
+are registered. Maintained by Ace Data Cloud; no affiliation with the service maker
+is implied. Requires Hermes **{HOST_VERSION}+**. You can also select this service
+within the official **Ace Data Cloud Media** package.
 
 ## Install this service from Git
 
 ```sh
-hermes plugins install https://github.com/AceDataCloud/{repository} --ref <40-character-source-SHA> --enable
+hermes plugins install https://github.com/AceDataCloud/{repository} --enable
 hermes config set ACEDATACLOUD_API_KEY '<your-application-api-key>'
 hermes tools enable {spec['toolset']}
 hermes tools list
 ```
 
-Use the merged source commit shown in this repository's history, then start a new
-session. No PyPI package or independent official catalog entry is claimed.
-For the reviewed official distribution, search `{title}` in the
-[Hermes catalog](https://hermes-agent.nousresearch.com/docs/plugins) and install
-`acedatacloud-media`. Its [one-product-line rule](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)
-continues to apply. Do not install a bare service name expecting this adapter.
+This installs the repository's current default branch. For a reproducible install
+or rollback, add `--ref <40-character-source-SHA>` using the merged commit in its
+history, then start a new session. CI tests normal Git installation at the exact
+source SHA. No PyPI package, default preinstallation or independent official
+catalog entry is claimed.
+
+For the reviewed official distribution, open
+[Ace Data Cloud Media](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)
+and install `acedatacloud-media`; its service toolsets are independently selectable.
+The [one-product-line rule](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)
+continues to apply. This repository's service name and tool names identify its
+source Git route; do not use a bare service name expecting a separate catalog entry.
 
 ## Application API key and spending
 
@@ -147,29 +186,28 @@ continues to apply. Do not install a bare service name expecting this adapter.
    `Bearer ` into the active Hermes profile. A `platform-...` management token
    cannot replace an application API key. Keep it out of prompts and Git.
 4. Check [current pricing and balance]({pricing}) before any call. Trial allowance
-   is whatever the account currently displays; installing is not free generation.
+   is whatever the account currently displays; installing is not free usage.
 
 ![Applications API key guide, sourced from existing Ace documentation](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-**Every generation spends paid Credits without a Hermes approval prompt.** The
-model can select costly model/resolution/count options where supported. Prompts
-and reference URLs are sent to **api.acedata.cloud**. Enabling tools permits their
-use with your key; schema constraints are not a budget. A generation is submitted
-**once, with no automatic retry**. On a timeout or unknown delivery, check request
-history and recover the same task ID; do not generate again. Task lookup does not
-submit a new generation and does not grant generation permission.
+**Every operation spends paid Credits without a Hermes approval prompt.** The
+model may choose costly model/resolution/count options where the service supports
+them. Prompts and reference URLs go to **api.acedata.cloud**. Enabling tools permits
+their use with your key; schema constraints are not a spending budget. There is
+**no automatic retry** of a paid request. On timeout or unknown delivery, check
+request history before taking another action. {recover_en}
 
 ## Tools, migration and co-installation
 
-- Generate: `{spec['generate_name']}`.
-- Query an existing task: `{prefix}_task` with `task_id` and optional
-  `wait_seconds` (0–60). Pending/preview media is not final success.
+- Primary operation: `{spec['generate_name']}`.
+{task_en}
 - The unmerged candidate's old `acedata_` names are removed, without aliases.
-  Update saved prompts/tool selections; existing task IDs remain usable.
+  Update saved prompts/tool selections; previously returned task IDs, if any,
+  remain usable with the same service's task tool.
 - Source variants use `acedatacloud_single_` tool names and
-  `acedatacloud-single-` toolsets. They do not overwrite official media tools.
-  If both are installed, enable only one integration for the service to avoid
-  accidental duplicate generation. No profile preferences are changed automatically.
+  `acedatacloud-single-` toolsets, distinct from official media registrations.
+  If both are installed, enable only one integration per service to avoid
+  accidental duplicate paid calls. No profile preferences change automatically.
 - {native}
 
 ## Canonical source and validation boundary
@@ -181,59 +219,61 @@ identity transformations. Consumer CI checks regenerated files against that
 immutable checkout. Submit runtime/schema fixes to the canonical repository,
 then deliberately regenerate; do not hand-edit downstream transport copies.
 
-Normal CI runs unittest discovery, the official Hermes 0.23.0 validator, normal
-Git installation with an exact source SHA, and fresh in-process/host profiles
-both alone and alongside official media 2.0.2. Unit requests are mocked; host
-dispatch uses invalid inputs. Green source CI does not prove a new paid task,
+Normal CI runs unittest discovery, the official Hermes {HOST_VERSION} validator,
+normal exact-SHA Git installation, and fresh in-process/host profiles both alone
+and alongside official media 2.0.2. Valid transport requests are mocked; host
+dispatch uses invalid inputs. Green source CI does not prove a new paid request,
 unique billing, current GUI interaction, default installation or catalog admission.
 Original candidate specs and dated live evidence are preserved in `history/`.
 
-![Historical real official catalog search, captured 2026-10-18]({screenshot})
+![Historical real official media catalog screenshot, captured 2026-10-18]({screenshot})
 
-Historical **2026-10-18** screenshot of the official media **2.0.1** entry;
-it is not this source variant, a new generation result or a current GUI test.
+Historical **2026-10-18** screenshot of the official media **2.0.1** entry.
+It illustrates that shared catalog entry, not a search for this service, this
+source variant, a new paid result or a current GUI test.
 '''
     chinese = f'''# {title} by Ace Data Cloud：Hermes 单服务 Git 安装
 
 [English](../README.md)
 
-此源码变体只注册 **{title} 的两个工具**，由 Ace Data Cloud 维护，不表示与服务品牌方有隶属关系。需要 Hermes **0.23.0+**。这是独立 Git 源码安装路线；官方目录仍只有 `acedatacloud-media` 一条媒体产品线入口，不能把本仓源码合并当作独立官方收录或默认预装。
+本源码变体只注册 **{title} 的 {tool_count} 个工具**，由 Ace Data Cloud 维护，不表示与服务品牌方有隶属关系。需要 Hermes **{HOST_VERSION}+**。官方目录仍只有 `acedatacloud-media` 一条媒体产品线入口，源码合并不表示独立官方收录或默认预装。
 
 ## 安装与应用 Token
 
 ```sh
-hermes plugins install https://github.com/AceDataCloud/{repository} --ref <40位源码SHA> --enable
+hermes plugins install https://github.com/AceDataCloud/{repository} --enable
 hermes config set ACEDATACLOUD_API_KEY '<应用API密钥>'
 hermes tools enable {spec['toolset']}
 hermes tools list
 ```
 
-使用本仓已合并源码 commit，启用后开始新会话。要使用官方入口，请在[官方目录](https://hermes-agent.nousresearch.com/docs/plugins)搜索 `{title}` 并安装 `acedatacloud-media`。未发布 PyPI 新项目，也未承诺本变体另获官方 listing。
+默认安装仓库当前默认分支；如需固定版本或回滚，增加 `--ref <40位源码SHA>`，使用本仓已合并源码 commit，启用后开始新会话。CI 验证普通 Git URL 加精确 SHA 安装。要使用官方入口，请打开[官方媒体页面](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)，安装 `acedatacloud-media` 并选择本服务工具集。未发布 PyPI 新项目，也未承诺本变体另获官方 listing。
 
 1. 打开 [Ace Data Cloud → Applications]({application})，登录或注册。
 2. 如未初始化，先初始化“通用应用”；也可选择具有本服务权限的专用应用。在“密钥 / 管理密钥 → 创建”中新建可单独撤销的 Hermes 密钥。
-3. 检查到期时间、使用量限制和允许 API。复制不含 `Bearer ` 的原始 Token 到当前 Hermes profile；`platform-...` 管理 Token 不能替代生成 API Key。不要写进提示词或 Git。
-4. 调用前检查[当前价格与余额]({pricing})。试用额度以账户实际显示为准，安装成功不表示免费生成。
+3. 检查到期时间、使用量限制和允许 API。复制不含 `Bearer ` 的原始 Token 到当前 Hermes profile；`platform-...` 管理 Token 不能替代应用 API Key。不要写进提示词或 Git。
+4. 调用前检查[当前价格与余额]({pricing})。试用额度以账户实际显示为准，安装成功不表示免费使用。
 
 ![应用密钥获取指引（英文界面原图），来源于已有 Ace 文档](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-**每次生成立即消耗 Credits，不会出现 Hermes 审批提示。** 模型可以选择服务支持的高价模型、分辨率或数量选项。提示词和参考 URL 发送至 `api.acedata.cloud`。启用即允许模型使用密钥调用，schema 限制不等于预算。生成只提交一次，**不自动重试**；超时或送达未知时查请求历史并使用同一任务 ID 恢复，不能再次生成。查询任务不会新建生成，也不会授予生成权限。
+**每次操作立即消耗 Credits，不会出现 Hermes 审批提示。** 模型可以选择服务支持的高价模型、分辨率或数量选项。提示词和参考 URL 发送至 `api.acedata.cloud`。启用即允许模型使用密钥调用，schema 限制不等于预算。收费请求**不自动重试**；超时或送达未知时先查请求历史。{recover_zh}
 
 ## 工具与共装
 
-生成工具：`{spec['generate_name']}`；任务查询：`{prefix}_task`，传入 `task_id` 和可选 `wait_seconds`（0–60）。pending/预览图不视作终态成功。旧候选 `acedata_` 名称已移除，无别名；旧任务 ID 可继续查询。
+主工具：`{spec['generate_name']}`。{task_zh}
+旧候选 `acedata_` 名称已移除，无别名；原服务如果有任务查询工具，旧任务 ID 可继续查询。
 
-本变体使用 `acedatacloud_single_` 名称及 `{spec['toolset']}` 工具集，与官方媒体包的名称分开，避免共装覆盖。两者同时安装时同一服务只启用一种，避免模型重复生成；插件不自动改 profile 的其他选择。{'Nano 原生图像后端为 `acedatacloud-single-nano-banana`，与官方包 `acedatacloud-nano-banana` 分开，按需选择一个。' if service == 'nano-banana' else '此服务不注册原生图像后端。'}
+本变体使用 `acedatacloud_single_` 名称及 `{spec['toolset']}` 工具集，与官方媒体包的名称分开，避免共装覆盖。两者同时安装时同一服务只启用一种，避免模型重复收费调用；插件不自动改 profile 的其他选择。{'Nano 原生图像后端为 `acedatacloud-single-nano-banana`，与官方包 `acedatacloud-nano-banana` 分开，按需选择一个。' if service == 'nano-banana' else '此服务不注册原生图像后端。'}
 
 ## 单一源码与验收边界
 
 由 [canonical 媒体源码]({REPO}) 的 `{source_ref}` 统一生成。`source-lock.json` 固定 transport/schema 的来源、哈希和名称映射，CI 用同一 commit 重新生成比较。runtime/schema 修复先交唯一源，再生成消费仓，不手写维护多套底座。原候选 spec 和历史实测证据保留在 `history/`。
 
-CI 包括 unittest 正常发现、Hermes 0.23.0 官方校验、按精确 SHA 正常 Git 安装、两种隔离模式的单独/共装注册和无效输入 dispatch。mock/宿主兼容不等于新收费任务、唯一账单、当前 GUI、默认预装或官方收录。
+CI 包括 unittest 正常发现、Hermes {HOST_VERSION} 官方校验、按精确 SHA 正常 Git 安装、两种隔离模式的单独/共装注册和无效输入 dispatch。mock/宿主兼容不等于新收费请求、唯一账单、当前 GUI、默认预装或官方收录。
 
-![2026-10-18 真实官方目录历史搜索截图]({screenshot})
+![2026-10-18 真实官方媒体目录历史截图]({screenshot})
 
-截图为 **2026-10-18** 官方媒体 **2.0.1** 历史页面，不是此源码变体、新生成结果或当前 GUI 验收。
+截图为 **2026-10-18** 官方媒体 **2.0.1** 历史页面，只展示共同媒体目录项，不是本服务搜索、本源码变体、新收费结果或当前 GUI 验收。
 '''
     files.update({'README.md': readme.encode(), 'readme/README_zh_Hans.md': chinese.encode()})
     provenance = {

@@ -14,11 +14,16 @@ SERVICES = [
 def register(ctx):
     for spec in SERVICES:
         client = MediaClient(spec)
+        recovery = (
+            ' Submit once; recover pending tasks by ID. Never automatically resubmit generation.'
+            if spec.get('task_path') else
+            ' Synchronous result; no task-query tool. Never automatically retry a paid request.'
+        )
         description = (
             spec['description']
             + ' Spends Ace Data Cloud Credits immediately without a Hermes approval prompt.'
             + ' Model, resolution and count options can increase cost.'
-            + ' Inputs go to api.acedata.cloud. Submit once; recover pending tasks by ID.'
+            + ' Inputs go to api.acedata.cloud.' + recovery
         )
         operations = [(spec['generate_name'], 'generate', spec['generate_schema'], description)]
         if spec.get('task_path'):

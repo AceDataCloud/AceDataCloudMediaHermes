@@ -96,8 +96,11 @@ class RegistrationTests(unittest.TestCase):
         self.assertEqual(request.call_args_list[1].args[0], '/nano-banana/tasks')
 
     def test_acemusic_references_and_partial_failure(self):
-        generate = self.ctx.tools['acedatacloud_acemusic_generate']['handler']
-        retrieve = self.ctx.tools['acedatacloud_acemusic_task']['handler']
+        spec = next((s for s in plugin.SERVICES if s['service'] == 'acemusic'), None)
+        if spec is None:
+            self.skipTest('ACE Music is not in this standalone profile')
+        generate = self.ctx.tools[spec['generate_name']]['handler']
+        retrieve = self.ctx.tools[spec['tool_prefix'] + '_task']['handler']
         with patch.object(plugin.client, 'request', return_value={'task_id': 'job'}) as send:
             args = {'action': 'mashup', 'mashup_audio_ids': ['a', 'b'], 'lyric': 'lyric', 'style': 'folk'}
             self.assertEqual(json.loads(generate(args))['task_id'], 'job')

@@ -144,6 +144,11 @@ jobs:
     native = ('The native image backend is `acedatacloud-single-nano-banana`; the official media backend '
               'remains `acedatacloud-nano-banana`. Select only the backend you intend to use.'
               if service == 'nano-banana' else 'This variant registers no native image backend.')
+    prior_candidate = service != 'acemusic'
+    legacy_note = ('- To migrate the previous candidate, update saved tool names and retain original task IDs.'
+                   if prior_candidate else '')
+    history_en = 'Earlier candidate material is preserved in `history/`.' if prior_candidate else ''
+    history_zh = '原候选资料保存在 `history/`。' if prior_candidate else ''
     readme = f'''# {title} by Ace Data Cloud for Hermes
 
 [简体中文](readme/README_zh_Hans.md)
@@ -152,8 +157,7 @@ jobs:
 
 A source-only single-service Git installation: **only {title}'s {tool_count} tool(s)**
 are registered. Maintained by Ace Data Cloud; no affiliation with the service maker
-is implied. Requires Hermes **{HOST_VERSION}+**. You can also select this service
-within the official **Ace Data Cloud Media** package.
+is implied. Requires Hermes **{HOST_VERSION}+**. The canonical **Ace Data Cloud Media** source includes the same service profile.
 
 ## Install this service from Git
 
@@ -202,9 +206,7 @@ request history before taking another action. {recover_en}
 
 - Primary operation: `{spec['generate_name']}`.
 {task_en}
-- The unmerged candidate's old `acedata_` names are removed, without aliases.
-  Update saved prompts/tool selections; previously returned task IDs, if any,
-  remain usable with the same service's task tool.
+{legacy_note}
 - Source variants use `acedatacloud_single_` tool names and
   `acedatacloud-single-` toolsets, distinct from official media registrations.
   If both are installed, enable only one integration per service to avoid
@@ -225,7 +227,7 @@ normal exact-SHA Git installation, and fresh in-process/host profiles both alone
 and alongside official media 2.0.2. Valid transport requests are mocked; host
 dispatch uses invalid inputs. Green source CI does not prove a new paid request,
 unique billing, current GUI interaction, default installation or catalog admission.
-Original candidate specs and dated live evidence are preserved in `history/`.
+{history_en}
 
 ![Historical real official media catalog screenshot, captured 2026-10-18]({screenshot})
 
@@ -268,7 +270,7 @@ hermes tools list
 
 ## 单一源码与验收边界
 
-由 [canonical 媒体源码]({REPO}) 的 `{source_ref}` 统一生成。`source-lock.json` 固定 transport/schema 的来源、哈希和名称映射，CI 用同一 commit 重新生成比较。runtime/schema 修复先交唯一源，再生成消费仓，不手写维护多套底座。原候选 spec 和历史实测证据保留在 `history/`。
+由 [canonical 媒体源码]({REPO}) 的 `{source_ref}` 统一生成。`source-lock.json` 固定 transport/schema 的来源、哈希和名称映射，CI 用同一 commit 重新生成比较。runtime/schema 修复先交唯一源，再生成消费仓，不手写维护多套底座。{history_zh}
 
 CI 包括 unittest 正常发现、Hermes {HOST_VERSION} 官方校验、按精确 SHA 正常 Git 安装、两种隔离模式的单独/共装注册和无效输入 dispatch。mock/宿主兼容不等于新收费请求、唯一账单、当前 GUI、默认预装或官方收录。
 
@@ -277,14 +279,6 @@ CI 包括 unittest 正常发现、Hermes {HOST_VERSION} 官方校验、按精确
 截图为 **2026-10-18** 官方媒体 **2.0.1** 历史页面，只展示共同媒体目录项，不是本服务搜索、本源码变体、新收费结果或当前 GUI 验收。
 '''
     files.update({'README.md': readme.encode(), 'readme/README_zh_Hans.md': chinese.encode()})
-    if service == 'acemusic':
-        # The initial standalone export has no historical candidate, market listing or migration.
-        files['README.md'] = files['README.md'].replace(
-            b"You can also select this service\nwithin the official **Ace Data Cloud Media** package.",
-            b"The canonical media plugin source includes a matching service toolset."
-        ).replace(b"Original candidate specs and dated live evidence are preserved in `history/`.", b"")
-        files['readme/README_zh_Hans.md'] = files['readme/README_zh_Hans.md'].replace(
-            '原候选 spec 和历史实测证据保留在 `history/`。'.encode(), b'')
     provenance = {
         'canonical_repository': REPO, 'canonical_commit': source_ref,
         'generator': 'scripts/export_service.py', 'service': service,

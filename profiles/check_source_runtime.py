@@ -32,12 +32,16 @@ def child(mode, combined):
     source_sets = {r for r in rows if r.startswith('acedatacloud-single-')}
     assert source_sets == {SPEC['toolset']}, source_sets
     if combined:
-        canonical_prefix = LOCK['identity_map']['tool_prefix'][0]
-        for name in SPEC['tools']:
-            official = name.replace(SPEC['tool_prefix'], canonical_prefix, 1)
-            entry = registry.get_entry(official, scope=manager.scope_key)
-            assert entry and entry.toolset != SPEC['toolset'], official
-        assert len({r for r in rows if r.startswith('acedatacloud-') and not r.startswith('acedatacloud-single-')}) == 17
+        media = Path(os.environ['HERMES_HOME']) / 'plugins' / 'acedatacloud-media'
+        installed_specs = [json.loads(path.read_text()) for path in (media / 'services').glob('*.json')]
+        expected_sets = {spec['toolset'] for spec in installed_specs}
+        official_sets = {r for r in rows if r.startswith('acedatacloud-') and not r.startswith('acedatacloud-single-')}
+        assert expected_sets and official_sets == expected_sets, (official_sets, expected_sets)
+        for spec in installed_specs:
+            for name in spec['tools']:
+                entry = registry.get_entry(name, scope=manager.scope_key)
+                assert entry and entry.toolset == spec['toolset'], name
+                assert name not in SPEC['tools'], name
     else:
         assert {r for r in rows if r.startswith('acedatacloud-')} == {SPEC['toolset']}, rows
     if SPEC['service'] == 'nano-banana':

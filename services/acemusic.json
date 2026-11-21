@@ -1,0 +1,101 @@
+{
+  "service": "acemusic",
+  "title": "ACE Music by Ace Data Cloud",
+  "kind": "audio",
+  "description": "Create songs from ideas or lyrics, import MP3 references, cover an owned track or blend two owned tracks.",
+  "tool_prefix": "acedatacloud_acemusic",
+  "generate_path": "/acemusic/audios",
+  "task_path": "/acemusic/tasks",
+  "defaults": {
+    "action": "generate"
+  },
+  "generate_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [],
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "generate",
+          "upload",
+          "cover",
+          "mashup"
+        ]
+      },
+      "model": {
+        "type": "string",
+        "enum": [
+          "acemusic-v1.1",
+          "acemusic-v1"
+        ]
+      },
+      "custom": {
+        "type": "boolean"
+      },
+      "prompt": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "title": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "style": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "lyric": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "name": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "audio_id": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "audio_url": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 20000
+      },
+      "mashup_audio_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    }
+  },
+  "task_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "task_id"
+    ],
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "maxLength": 128,
+        "pattern": "[A-Za-z0-9_-]+"
+      },
+      "wait_seconds": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 60
+      }
+    }
+  },
+  "generate_name": "acedatacloud_acemusic_generate",
+  "tools": [
+    "acedatacloud_acemusic_generate",
+    "acedatacloud_acemusic_task"
+  ],
+  "toolset": "acedatacloud-acemusic"
+}

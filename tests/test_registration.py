@@ -48,7 +48,7 @@ class RegistrationTests(unittest.TestCase):
             with self.subTest(service=spec['service']):
                 args = {k: 'https://example.com/a.jpg' if k.endswith('_url') else 'test'
                         for k in spec['generate_schema']['required']}
-                if spec['service'] == 'suno':
+                if spec['service'] in {'suno', 'acemusic'}:
                     args = {'prompt': 'A quiet piano melody'}
                 response = {'task_id': 'task-123'} if spec['task_path'] else (
                     {'organic': [{'title': 'Docs', 'link': 'https://example.com', 'snippet': 'Guide'}]}
@@ -94,6 +94,22 @@ class RegistrationTests(unittest.TestCase):
         self.assertEqual(body['model'], 'nano-banana-2-lite')
         self.assertEqual(body['count'], 1)
         self.assertEqual(request.call_args_list[1].args[0], '/nano-banana/tasks')
+
+    def test_acemusic_references_and_partial_failure(self):
+        generate = self.ctx.tools['acedatacloud_acemusic_generate']['handler']
+        retrieve = self.ctx.tools['acedatacloud_acemusic_task']['handler']
+        with patch.object(plugin.client, 'request', return_value={'task_id': 'job'}) as send:
+            args = {'action': 'mashup', 'mashup_audio_ids': ['a', 'b'], 'lyric': 'lyric', 'style': 'folk'}
+            self.assertEqual(json.loads(generate(args))['task_id'], 'job')
+            self.assertEqual(send.call_args.args, ('/acemusic/audios', {**args, 'async': True}))
+            self.assertEqual(json.loads(generate({**args, 'mashup_audio_ids': ['a', 'a']}))['status'], 'error')
+            self.assertEqual(send.call_count, 1)
+        with patch.object(plugin.client, 'request', return_value={
+            'status': 'partial_failed', 'finished': True, 'successful': False,
+            'response': {'data': [{'audio_url': 'https://example.org/partial.mp3'}]},
+        }):
+            result = json.loads(retrieve({'task_id': 'job'}))
+            self.assertEqual(result['status'], 'failed')
 
     def test_manifest_exactly_declares_registered_tools_and_shared_key(self):
         manifest = json.loads((ROOT / 'plugin.yaml').read_text())

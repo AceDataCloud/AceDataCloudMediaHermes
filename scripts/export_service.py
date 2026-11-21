@@ -15,6 +15,7 @@ REPO = 'https://github.com/AceDataCloud/AceDataCloudMediaHermes'
 HOST = '3b421578588243f920886e6fe79a6faa87ea026e'
 HOST_VERSION = '0.23.1'
 SERVICES = {
+    'acemusic': ('ACE Music', 'ACEMusicHermes'),
     'suno': ('Suno', 'SunoHermes'),
     'seedance': ('Seedance', 'SeedanceHermes'),
     'happyhorse': ('Happy Horse', 'HappyHorseHermes'),
@@ -276,6 +277,14 @@ CI 包括 unittest 正常发现、Hermes {HOST_VERSION} 官方校验、按精确
 截图为 **2026-10-18** 官方媒体 **2.0.1** 历史页面，只展示共同媒体目录项，不是本服务搜索、本源码变体、新收费结果或当前 GUI 验收。
 '''
     files.update({'README.md': readme.encode(), 'readme/README_zh_Hans.md': chinese.encode()})
+    if service == 'acemusic':
+        # The initial standalone export has no historical candidate, market listing or migration.
+        files['README.md'] = files['README.md'].replace(
+            b"You can also select this service\nwithin the official **Ace Data Cloud Media** package.",
+            b"The canonical media plugin source includes a matching service toolset."
+        ).replace(b"Original candidate specs and dated live evidence are preserved in `history/`.", b"")
+        files['readme/README_zh_Hans.md'] = files['readme/README_zh_Hans.md'].replace(
+            '原候选 spec 和历史实测证据保留在 `history/`。'.encode(), b'')
     provenance = {
         'canonical_repository': REPO, 'canonical_commit': source_ref,
         'generator': 'scripts/export_service.py', 'service': service,

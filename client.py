@@ -216,6 +216,22 @@ class MediaClient:
             body['action'] = 'image2video' if body.get('image_urls') else 'text2video'
             if body['action'] == 'text2video':
                 body.pop('aspect_ratio', None)
+        if self.spec['service'] == 'acemusic':
+            action = body['action']
+            if action == 'generate':
+                fields = ('lyric', 'title', 'style') if body.get('custom') else ('prompt',)
+            elif action == 'upload':
+                fields = ('audio_url',)
+            elif action == 'cover':
+                fields = ('audio_id', 'lyric', 'style')
+            else:
+                fields = ('mashup_audio_ids', 'lyric', 'style')
+            if any(not body.get(field) for field in fields):
+                raise ValueError(f"ACE Music {action} requires {', '.join(fields)}.")
+            if action == 'mashup' and len(set(body['mashup_audio_ids'])) != 2:
+                raise ValueError('Select two distinct owned audio IDs.')
+            if action in {'cover', 'mashup'} and body.get('model', 'acemusic-v1.1') != 'acemusic-v1.1':
+                raise ValueError('ACE Music reference generation requires acemusic-v1.1.')
         if self.spec['service'] == 'suno':
             if not body.get('custom') and not body.get('prompt'):
                 raise ValueError('A music description is required.')
@@ -253,7 +269,18 @@ class MediaClient:
         while True:
             try:
                 timeout = min(30, max(1, deadline - time.monotonic())) if args.get('wait_seconds', 0) else 30
-                result = normalize(request(self.spec['task_path'], {'action': 'retrieve', 'id': task_id}, timeout=timeout), task_id, retrieved=True)
+                record = request(self.spec['task_path'], {'action': 'retrieve', 'id': task_id}, timeout=timeout)
+                if self.spec['service'] == 'acemusic' and isinstance(record, dict):
+                    state = record.get('status') or record.get('state')
+                    if state in {'partial_failed', 'failed', 'cancelled', 'canceled'} or (
+                        record.get('finished') is True and record.get('successful') is False
+                    ):
+                        record = {**record, 'success': False}
+                    elif record.get('finished') is False:
+                        record = {**record, 'finished_at': None}
+                    elif state in {'completed', 'succeeded', 'complete'} or record.get('finished') is True:
+                        record = {**record, 'finished_at': record.get('finished_at') or True}
+                result = normalize(record, task_id, retrieved=True)
             except ApiError as error:
                 error.result['task_id'] = task_id
                 error.result['next_action'] = 'Retry retrieval of this same task ID; never repeat the generation to recover a query failure.'

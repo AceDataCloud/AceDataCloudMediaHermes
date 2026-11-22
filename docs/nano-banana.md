@@ -29,9 +29,9 @@ service package, a paid run or default bundling. [Image provenance](../assets/tu
 
 ## 2. Register or sign in and copy an API Token
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_nano_banana_guide_api_key), register or sign in.
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen), register or sign in.
 2. Open **General application**; if absent, choose **Initialize General Application**.
-   Check **Nano Banana** service access, [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_nano_banana_guide_pricing) and balance.
+   Check **Nano Banana** service access, [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) and balance.
 3. Copy the application **API Key**, or choose **Manage Keys → Create** and name a
    dedicated token such as `Hermes Nano Banana`. A service-specific application key
    can access only its service; a General application key uses your permitted services.
@@ -141,7 +141,7 @@ registration evidence, not a new paid Nano Banana generation.
   expiration, usage limit and balance. A chat-only key cannot generate media.
 - **Still pending or query failed:** keep the same task ID. Inspect request history;
   do not create a replacement generation automatically.
-- **Cost questions:** [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_nano_banana_guide_pricing) and your actual package rate/
+- **Cost questions:** [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) and your actual package rate/
   billing records are authoritative. No fixed USD or free-credit guarantee is made.
 
 [All Hermes media services](../README.md#services) · [Model provider](https://github.com/AceDataCloud/AceDataCloudModelProviderHermes)

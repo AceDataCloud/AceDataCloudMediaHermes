@@ -54,9 +54,9 @@ def build(service, source_ref):
                 tools=[name.replace(old_prefix, prefix) for name in spec['tools']],
                 repo=repository)
     plugin_name = 'acedatacloud-' + service
-    utm = f'utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content={repository.lower()}_readme'
-    application = 'https://platform.acedata.cloud/console/applications?' + utm + '_api_key'
-    pricing = 'https://platform.acedata.cloud/models?' + utm + '_pricing'
+    utm = 'utm_source=opensource&utm_medium=referral&utm_campaign=evergreen'
+    application = 'https://platform.acedata.cloud/console/applications?' + utm
+    pricing = 'https://platform.acedata.cloud/models?' + utm
     manifest = {
         'name': plugin_name, 'version': '1.0.0', 'author': 'AceDataCloud',
         'description': f'{title} by Ace Data Cloud: source-only single-service Git plugin. '

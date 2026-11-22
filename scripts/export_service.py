@@ -54,7 +54,7 @@ def build(service, source_ref):
                 tools=[name.replace(old_prefix, prefix) for name in spec['tools']],
                 repo=repository)
     plugin_name = 'acedatacloud-' + service
-    utm = 'utm_source=opensource&utm_medium=referral&utm_campaign=evergreen'
+    utm = 'utm_source=hermes&utm_medium=referral&utm_campaign=evergreen'
     application = 'https://platform.acedata.cloud/console/applications?' + utm
     pricing = 'https://platform.acedata.cloud/models?' + utm
     manifest = {

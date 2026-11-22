@@ -47,6 +47,6 @@ class SourceProfileTests(unittest.TestCase):
 
     def test_readmes_disclose_source_distribution_and_spending(self):
         text = (ROOT / 'README.md').read_text()
-        for phrase in ('without a Hermes approval prompt', 'no automatic retry', 'source-only', '/console/applications?', 'utm_source=opensource', 'utm_medium=referral', 'utm_campaign=evergreen', '2026-10-18'):
+        for phrase in ('without a Hermes approval prompt', 'no automatic retry', 'source-only', '/console/applications?', 'utm_source=hermes', 'utm_medium=referral', 'utm_campaign=evergreen', '2026-10-18'):
             self.assertIn(phrase, text)
         self.assertTrue((ROOT / 'readme/README_zh_Hans.md').exists())

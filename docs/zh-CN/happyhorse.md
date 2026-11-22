@@ -21,8 +21,8 @@ hermes plugins install acedatacloud-media --enable
 
 ## 2. 注册、登录并复制API Token
 
-1. 打开[Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_happyhorse_guide_api_key)，注册或登录。
-2. 进入**General application（通用应用）**；没有时先点**Initialize General Application**。确认**HappyHorse（Happy Horse）**服务访问权限、[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_happyhorse_guide_pricing)和余额。
+1. 打开[Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
+2. 进入**General application（通用应用）**；没有时先点**Initialize General Application**。确认**HappyHorse（Happy Horse）**服务访问权限、[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)和余额。
 3. 复制应用卡片上的**API Key**。如需分离管理，在**Manage Keys → Create**创建命名为`Hermes HappyHorse（Happy Horse）`的专用Token。通用应用Key能访问账户获准的服务，专属服务应用的Key只限该服务。
 4. 按需检查有效期、消费限制、Allowed APIs。若启用API白名单，须包含`/happyhorse/videos`和`/happyhorse/tasks`。查询权限不代表生成授权。
 5. 只复制Token原文，不加`Bearer `、引号或空格。`platform-...`平台管理Token不能替代生成Key。不承诺固定免费额度；以账户显示和实际套餐为准。
@@ -86,6 +86,6 @@ hermes tools
 - **工具不见**：检查本profile插件、`acedatacloud-happyhorse`和Key可用，`hermes tools list`检查选择，开始新会话。
 - **认证/额度失败**：检查Token原文、服务与生成/查询白名单、有效期、消费限制和余额。chat-only Key不能生成媒体。
 - **一直pending/查询失败**：保留原任务ID查请求历史，不重新生成。
-- **费用疑问**：[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=hermes_happyhorse_guide_pricing)和账户实际套餐/账单为准，不复制旧USD单价。
+- **费用疑问**：[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)和账户实际套餐/账单为准，不复制旧USD单价。
 
 本中文指南随源码版本2.0.2提供；GitHub发布与Hermes目录审核pin分开，按名称安装取得目录当前固定commit。只有该commit包含此版本时，用户安装文档才会更新。升级前检查目录版本与SHA，本文不把源码发布等同目录已更新。

@@ -8,7 +8,7 @@
 through your **Ace Data Cloud** account. This is an Ace-maintained integration; it
 does not claim affiliation with the makers of those services.
 
-One plugin with 17 independently selectable service toolsets and a Nano Banana
+One plugin with 18 independently selectable service toolsets and a Nano Banana
 `image_generate` backend. The `acedatacloud` model provider remains a separate
 plugin. New services are released as version and catalog-pin updates to this
 plugin, not new catalog entries.
@@ -32,6 +32,7 @@ plugin. Never enter a bare `suno` installation command expecting this Ace adapte
 
 | Service guide | Enable only this service | What it produces |
 | --- | --- | --- |
+| [ACE Music by Ace Data Cloud](docs/acemusic.md) | `hermes tools enable acedatacloud-acemusic` | Music/audio |
 | [Suno by Ace Data Cloud](docs/suno.md) | `hermes tools enable acedatacloud-suno` | Music/audio |
 | [Seedance by Ace Data Cloud](docs/seedance.md) | `hermes tools enable acedatacloud-seedance` | Video |
 | [HappyHorse by Ace Data Cloud](docs/happyhorse.md) | `hermes tools enable acedatacloud-happyhorse` | Video |
@@ -138,6 +139,7 @@ imply every advanced action or option from the broader APIs/Dify integrations.
 | --- | --- | --- |
 | `acedatacloud-nano-banana` | Image generation and HTTPS reference-image editing | `acedatacloud_nano_banana_generate` |
 | `acedatacloud-veo` | Veo 3.1 Fast text/image-to-video | `acedatacloud_veo_generate` |
+| `acedatacloud-acemusic` | Songs, reference import, covers and mashups | `acedatacloud_acemusic_generate` |
 | `acedatacloud-suno` | Music from prompts or custom lyrics | `acedatacloud_suno_generate` |
 | `acedatacloud-fish` | Speech with optional saved voice reference | `acedatacloud_fish_generate` |
 | `acedatacloud-gpt-image` | GPT Image 2 generation | `acedatacloud_gpt_image_generate` |
@@ -156,7 +158,7 @@ imply every advanced action or option from the broader APIs/Dify integrations.
 
 Each of the 15 media services also has its own `acedatacloud_<service>_task` tool in
 the same toolset (hyphens become underscores). Google Search and Face return
-synchronous structured results. The manifest declares all 32 tools.
+synchronous structured results. The source manifest declares all 34 tools.
 
 Example for `acedatacloud_nano_banana_generate`:
 

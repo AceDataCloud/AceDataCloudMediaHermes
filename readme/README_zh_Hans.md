@@ -46,6 +46,7 @@ hermes tools
 
 | 服务 | 命令 | 中文/English首用与结果 |
 |---|---|---|
+| ACE Music | `hermes tools enable acedatacloud-acemusic` | [中文](../docs/zh-CN/acemusic.md) / [English](../docs/acemusic.md) |
 | Suno | `hermes tools enable acedatacloud-suno` | [中文](../docs/zh-CN/suno.md) / [English](../docs/suno.md) |
 | Seedance | `hermes tools enable acedatacloud-seedance` | [中文](../docs/zh-CN/seedance.md) / [English](../docs/seedance.md) |
 | HappyHorse | `hermes tools enable acedatacloud-happyhorse` | [中文](../docs/zh-CN/happyhorse.md) / [English](../docs/happyhorse.md) |

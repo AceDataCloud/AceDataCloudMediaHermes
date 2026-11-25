@@ -124,7 +124,7 @@ class ContractTests(unittest.TestCase):
         args={}
         for k in SPEC['generate_schema']['required']:
             args[k]='https://example.com/image.jpg' if k.endswith('_url') else 'test'
-        if SPEC['service']=='suno':args={'prompt':'A short instrumental melody'}
+        if SPEC['service'] in {'suno', 'acemusic'}:args={'prompt':'A short folk song'}
         with patch('client.request',return_value={'task_id':'t'} if SPEC.get('task_path') else {'success':True,'data':{'organic':[],'face_shape_set':[],'image_width':10,'image_height':10}}) as req:
             client.MediaClient(SPEC).generate(args)
         path,body=req.call_args.args

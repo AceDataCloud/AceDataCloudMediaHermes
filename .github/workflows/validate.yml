@@ -6,6 +6,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         hermes:
           - version: '0.21.6'

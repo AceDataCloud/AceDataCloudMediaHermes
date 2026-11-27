@@ -1,7 +1,7 @@
 """Opt-in normal catalog installation on an unmodified Hermes release.
 
 Installs the published media and model pins in disposable profiles, then runs
-the media pin's own real-host checks. No inference or generation is submitted.
+real-host checks against the installed media pin. No inference or generation is submitted.
 """
 import json
 import os
@@ -23,7 +23,9 @@ def main():
     entries = {row['name']: row for row in catalog['entries']
                if row['name'] in {'acedatacloud', 'acedatacloud-media'}}
     assert len(entries) == 2, entries
-    assert len(entries['acedatacloud-media']['capabilities']['provides_tools']) == 32
+    catalog_tools = entries['acedatacloud-media']['capabilities']['provides_tools']
+    assert {'acedatacloud_acemusic_generate', 'acedatacloud_acemusic_task'} <= set(catalog_tools)
+    assert len(set(catalog_tools)) == len(catalog_tools)
 
     for mode in ['in_process', 'host']:
         with tempfile.TemporaryDirectory(prefix='hermes-ace-published-') as directory:
@@ -51,7 +53,7 @@ def main():
             version = run('-m', 'hermes_cli.main', '--version')
             search = run('-m', 'hermes_cli.main', 'plugins', 'search', 'acedatacloud')
             brand_search = {}
-            for term in ['Suno', 'Seedance', 'Happy Horse', 'GPT Image', 'Nano Banana']:
+            for term in ['ACE Music', 'Suno', 'Seedance', 'Happy Horse', 'GPT Image', 'Nano Banana']:
                 result = run('-m', 'hermes_cli.main', 'plugins', 'search', term)
                 assert 'acedatacloud-media' in result, (term, result)
                 brand_search[term] = 'acedatacloud-media'
@@ -78,12 +80,11 @@ def main():
                 yaml.dump(config, stream)
             media = profile / 'plugins' / 'acedatacloud-media'
             specs = [json.loads(p.read_text()) for p in (media / 'services').glob('*.json')]
-            assert len(specs) == 17
-            assert {t for s in specs for t in s['tools']} == set(
-                entries['acedatacloud-media']['capabilities']['provides_tools'])
-            # This runs the installed, reviewed pin's existing checks, not a
-            # locally copied candidate package or an injected catalog.
-            run(str(media / 'scripts' / 'check_runtime.py'), '--child', mode)
+            assert {t for s in specs for t in s['tools']} == set(catalog_tools)
+            # Exercise the installed catalog pin with the verifier from this checkout.
+            # Older pins bundle verifiers that predate newer Hermes validation responses.
+            verifier = Path(__file__).with_name('check_runtime.py').resolve()
+            run(str(verifier), '--child', mode, '--plugin-root', str(media))
             run('-c', """
 from providers import get_provider_profile
 from hermes_cli.models import list_available_providers
@@ -101,7 +102,7 @@ assert set(p.fallback_models) == {'gpt-4.1-mini', 'gpt-4.1'}
             print(json.dumps({
                 'published_catalog_install': 'passed', 'mode': mode,
                 'host_sha': hermes_sha, 'host_version_display': version.strip(),
-                'installed': installed, 'services': 17, 'tools': 32,
+                'installed': installed, 'services': len(specs), 'tools': len(catalog_tools),
                 'brand_search': brand_search,
                 'paid_calls': 0,
             }), flush=True)

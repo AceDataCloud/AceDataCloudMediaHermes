@@ -15,7 +15,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def child(mode):
+def child(mode, plugin_root):
     from agent.secret_scope import reset_secret_scope, set_secret_scope
     from hermes_cli.plugins import discover_plugins, get_plugin_manager, get_plugin_toolsets
     from tools.registry import registry
@@ -25,7 +25,7 @@ def child(mode):
 
     discover_plugins()
     manager = get_plugin_manager()
-    specs = [json.loads(p.read_text()) for p in sorted((ROOT / 'services').glob('*.json'))]
+    specs = [json.loads(p.read_text()) for p in sorted((plugin_root / 'services').glob('*.json'))]
     expected_sets = {s['toolset'] for s in specs}
     expected_tools = {t for s in specs for t in s['tools']}
     rows = {r[0] for r in get_plugin_toolsets()}
@@ -42,7 +42,13 @@ def child(mode):
             assert entry and entry.toolset == spec['toolset']
         result = registry.dispatch(spec['generate_name'], {'unknown': True}, scope=manager.scope_key)
         result = json.loads(result) if isinstance(result, str) else result
-        assert result['error']['code'] == 'invalid_parameters', (spec['service'], result)
+        error = result['error']
+        if isinstance(error, str):
+            # Newer Hermes releases validate the tool schema before invoking our handler.
+            assert f"unknown: not a parameter of {spec['generate_name']}." in error, result
+            assert 'The tool was NOT invoked.' in error, result
+        else:
+            assert error['code'] == 'invalid_parameters', (spec['service'], result)
 
     provider = get_provider('acedatacloud-nano-banana')
     assert provider and provider.list_models()[0]['id'] == 'nano-banana-2-lite'
@@ -86,7 +92,7 @@ def child(mode):
     enabled = _get_platform_tools(load_config(), 'cli', include_default_mcp_servers=False)
     assert 'acedatacloud-suno' in enabled and 'acedatacloud-veo' not in enabled, enabled
     manager.unload()
-    print(json.dumps({'mode': mode, 'services': 17, 'registered_tools': 32,
+    print(json.dumps({'mode': mode, 'services': len(expected_sets), 'registered_tools': len(expected_tools),
                       'native_image_provider': True, 'independent_cli_selection': True,
                       'paid_calls': 0, 'passed': True}))
 
@@ -94,9 +100,10 @@ def child(mode):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--child', choices=['in_process', 'host'])
+    parser.add_argument('--plugin-root', type=Path, default=ROOT, help='Service specs from the plugin under test')
     args = parser.parse_args()
     if args.child:
-        child(args.child)
+        child(args.child, args.plugin_root)
         return
     source = Path(os.environ['HERMES_SOURCE']).resolve()
     for mode in ['in_process', 'host']:

@@ -83,6 +83,12 @@ Requires Hermes **0.21.6 or newer**, an Ace Data Cloud key with the appropriate
 service access, and sufficient Credits. Check current pricing and obtain your key
 using the [API key steps above](#get-your-ace-data-cloud-api-key).
 
+For ACE Music, check that `hermes plugins info acedatacloud-media` shows version
+**2.1.0** or later. Hermes 0.21.6 and 0.22.2 limit the live catalog to 2 MiB.
+When the catalog exceeds that size, they use their bundled copy, which can show
+an older media release. Upgrade to a Hermes release with the larger catalog
+limit, such as 0.23.4, and check the version again before installing.
+
 Install the reviewed version from the
 [official Hermes community catalog](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media):
 
@@ -220,7 +226,7 @@ python -m unittest discover -s tests -v
 hermes plugins validate . --install-deps
 ```
 
-CI uses official Hermes 0.21.6 and 0.22.2 with each release's locked dependencies. Unit tests
+CI tests Hermes 0.21.6, 0.22.2, 0.23.1 and 0.23.4 with each release's locked dependencies. Unit tests
 make no API calls. `scripts/check_runtime.py` tests real plugin discovery,
 per-service selection, scoped credential availability, dispatch and the native
 image provider in a fresh profile, including host isolation, without paid calls.

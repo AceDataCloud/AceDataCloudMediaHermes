@@ -6,6 +6,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         hermes:
           - version: '0.21.6'
@@ -14,6 +15,8 @@ jobs:
             sha: 'd923a5eb487a17c0a68801bba9ef0f56c81040a8'
           - version: '0.23.1'
             sha: '3b421578588243f920886e6fe79a6faa87ea026e'
+          - version: '0.23.4'
+            sha: '8fc0374447313e276f6b9a2764bfc750190c966a'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Unit contracts (no paid requests)

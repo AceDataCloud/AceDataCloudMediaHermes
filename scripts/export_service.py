@@ -194,17 +194,13 @@ source Git route; do not use a bare service name expecting a separate catalog en
 
 ## Application API key and spending
 
-1. Open [Ace Data Cloud → Applications]({application}); sign in or register.
-2. Initialize **General application** if needed, or use a dedicated application
-   with access to this service. Open **Keys / Manage Keys → Create** and name a
-   separately revocable key for Hermes.
-3. Review expiration, usage limits and Allowed APIs. Copy the raw token without
-   `Bearer ` into the active Hermes profile. A `platform-...` management token
-   cannot replace an application API key. Keep it out of prompts and Git.
-4. Check [current pricing and balance]({pricing}) before any call. Trial allowance
-   is whatever the account currently displays; installing is not free usage.
+Sign in to [Applications]({application}) and open **General Application**. If it is missing, select **Initialize General Application**. Click the copy button marked **1** beside **API KEY**.
 
-![Applications API key guide, sourced from existing Ace documentation](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![Button 1 copies the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+Save the raw key in the active Hermes profile as `ACEDATACLOUD_API_KEY`.
+
+Check service access, the key’s allowed APIs and the application balance against [current prices]({pricing}) before the first billable request.
 
 **The primary operation spends paid Credits without a Hermes approval prompt.** The
 model may choose costly model/resolution/count options where the service supports
@@ -263,12 +259,13 @@ hermes tools list
 
 默认安装仓库当前默认分支；如需固定版本或回滚，增加 `--ref <40位源码SHA>`，使用本仓已合并源码 commit，启用后开始新会话。CI 验证普通 Git URL 加精确 SHA 安装。要使用官方入口，请打开[官方媒体页面](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)。{catalog_zh}未发布 PyPI 新项目，也未承诺本变体另获官方 listing。
 
-1. 打开 [Ace Data Cloud → Applications]({application})，登录或注册。
-2. 如未初始化，先初始化“通用应用”；也可选择具有本服务权限的专用应用。在“密钥 / 管理密钥 → 创建”中新建可单独撤销的 Hermes 密钥。
-3. 检查到期时间、使用量限制和允许 API。复制不含 `Bearer ` 的原始 Token 到当前 Hermes profile；`platform-...` 管理 Token 不能替代应用 API Key。不要写进提示词或 Git。
-4. 调用前检查[当前价格与余额]({pricing})。试用额度以账户实际显示为准，安装成功不表示免费使用。
+登录[应用列表]({application})，打开**通用应用**。首次使用时先点击**初始化通用应用**，再点击 **API KEY** 旁的复制按钮（图中标注 **1**）。
 
-![应用密钥获取指引（英文界面原图），来源于已有 Ace 文档](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+将原始 Key 保存在当前 Hermes 配置的 `ACEDATACLOUD_API_KEY` 中。
+
+首次发起计费请求前，检查服务权限、Key 允许的 API、应用余额和[当前价格]({pricing})。
 
 **主操作立即消耗 Credits，不会出现 Hermes 审批提示。** 模型可以选择服务支持的高价模型、分辨率或数量选项。提示词和参考 URL 发送至 `api.acedata.cloud`。启用即允许模型使用密钥调用，schema 限制不等于预算。收费请求**不自动重试**；超时或送达未知时先查请求历史。{recover_zh}
 

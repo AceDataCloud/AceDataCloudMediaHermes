@@ -30,7 +30,10 @@ def child(mode, plugin_root):
     expected_tools = {t for s in specs for t in s['tools']}
     rows = {r[0] for r in get_plugin_toolsets()}
     assert expected_sets <= rows, (expected_sets - rows, mode)
-    assert len(expected_tools) == 34 and len(expected_sets) == 18
+    manifest = json.loads((plugin_root / 'plugin.yaml').read_text())
+    assert len(expected_sets) == len(specs)
+    assert len(expected_tools) == sum(len(spec['tools']) for spec in specs)
+    assert expected_tools == set(manifest['provides_tools'])
     assert all(name.startswith('acedatacloud_') for name in expected_tools)
     assert all(name.startswith('acedatacloud-') for name in expected_sets)
     for name in expected_tools:

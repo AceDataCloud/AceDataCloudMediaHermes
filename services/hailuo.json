@@ -1,0 +1,64 @@
+{
+  "service": "hailuo",
+  "title": "Ace Data Cloud Hailuo",
+  "kind": "video",
+  "description": "Generate a Hailuo video from a prompt or animate an HTTPS first-frame image.",
+  "tool_prefix": "acedatacloud_hailuo",
+  "generate_path": "/hailuo/videos",
+  "task_path": "/hailuo/tasks",
+  "defaults": {
+    "action": "generate"
+  },
+  "generate_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "maxLength": 2000
+      },
+      "first_image_url": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2048
+      },
+      "model": {
+        "type": "string",
+        "enum": [
+          "minimax-t2v",
+          "minimax-i2v",
+          "minimax-i2v-director"
+        ],
+        "description": "Defaults to minimax-i2v with a first image, otherwise minimax-t2v."
+      }
+    }
+  },
+  "task_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "task_id"
+    ],
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "maxLength": 128,
+        "pattern": "[A-Za-z0-9_-]+"
+      },
+      "wait_seconds": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 60
+      }
+    }
+  },
+  "generate_name": "acedatacloud_hailuo_generate",
+  "tools": [
+    "acedatacloud_hailuo_generate",
+    "acedatacloud_hailuo_task"
+  ],
+  "toolset": "acedatacloud-hailuo"
+}

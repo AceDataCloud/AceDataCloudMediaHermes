@@ -212,6 +212,11 @@ class MediaClient:
             headers['model'] = body.pop('model')
         if self.spec['service'] == 'nano-banana':
             body['action'] = 'edit' if body.get('image_urls') else 'generate'
+        if self.spec['service'] == 'hailuo':
+            has_image = bool(body.get('first_image_url'))
+            model = body.setdefault('model', 'minimax-i2v' if has_image else 'minimax-t2v')
+            if has_image != model.startswith('minimax-i2v'):
+                raise ValueError('Hailuo image models require a first_image_url and its text model takes a prompt only.')
         if self.spec['service'] == 'veo':
             body['action'] = 'image2video' if body.get('image_urls') else 'text2video'
             if body['action'] == 'text2video':

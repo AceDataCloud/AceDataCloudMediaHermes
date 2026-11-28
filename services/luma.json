@@ -1,0 +1,79 @@
+{
+  "service": "luma",
+  "title": "Ace Data Cloud Luma Dream Machine",
+  "kind": "video",
+  "description": "Generate a Luma Dream Machine video from a prompt and optional HTTPS start and end frames.",
+  "tool_prefix": "acedatacloud_luma",
+  "generate_path": "/luma/videos",
+  "task_path": "/luma/tasks",
+  "defaults": {
+    "action": "generate",
+    "aspect_ratio": "16:9"
+  },
+  "generate_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "maxLength": 2000
+      },
+      "start_image_url": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2048
+      },
+      "end_image_url": {
+        "type": "string",
+        "format": "uri",
+        "maxLength": 2048
+      },
+      "aspect_ratio": {
+        "type": "string",
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "21:9",
+          "9:21"
+        ]
+      },
+      "loop": {
+        "type": "boolean"
+      },
+      "enhancement": {
+        "type": "boolean"
+      }
+    }
+  },
+  "task_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "task_id"
+    ],
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "maxLength": 128,
+        "pattern": "[A-Za-z0-9_-]+"
+      },
+      "wait_seconds": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 60
+      }
+    }
+  },
+  "generate_name": "acedatacloud_luma_generate",
+  "tools": [
+    "acedatacloud_luma_generate",
+    "acedatacloud_luma_task"
+  ],
+  "toolset": "acedatacloud-luma"
+}

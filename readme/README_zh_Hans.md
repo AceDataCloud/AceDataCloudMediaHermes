@@ -2,18 +2,25 @@
 
 [English](../README.md)
 
-支持**Suno、Seedance、HappyHorse（Happy Horse）、GPT Image、Nano Banana**等17项服务，由**Ace Data Cloud**维护并通过你的Ace账户访问。不是服务原厂的官方插件，不冒充与这些品牌的关联。
+支持**Suno、Seedance、HappyHorse（Happy Horse）、GPT Image、Nano Banana**、ACE Music、Hailuo 和 Luma 等 20 项服务，由**Ace Data Cloud**维护并通过你的Ace账户访问。不是服务原厂的官方插件，不冒充与这些品牌的关联。
 
 ## 1. 从官方目录找服务并安装
 
-打开[Hermes官方Ace媒体插件页](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)，或搜索Suno、Seedance、Happy Horse、GPT Image、Nano Banana。核对维护者**AceDataCloud**。这是一个媒体安装包、17个独立服务开关、32个工具；官方[要求一产品线只有一个目录项](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)，不是17个独立插件。
+打开[Hermes官方Ace媒体插件页](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)，或搜索Suno、Seedance、Happy Horse、GPT Image、Nano Banana。核对维护者**AceDataCloud**。这是一个媒体安装包。源码 2.2.0 提供 20 个独立服务开关、38 个工具。官方[要求一产品线只有一个目录项](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)，各项可在包内独立启用。
 
 ```sh
 hermes plugins search "Suno"
 hermes plugins install acedatacloud-media --enable
 ```
 
-最低Hermes0.21.6，本仓库版本2.0.2；官方目录独立固定审核commit，请以目录当前版本与SHA为准。官方网页品牌搜索已于2026-10-18更新；已有profile缓存可能保留6小时。
+最低Hermes0.21.6，本仓库版本 2.2.0；官方目录独立固定审核commit，请以目录当前版本与SHA为准。官方网页品牌搜索已于2026-10-18更新；已有profile缓存可能保留6小时。
+
+Hailuo 和 Luma 需要 2.2.0 或以上。用 `hermes plugins info acedatacloud-media` 核对目录版本，然后按需启用对应工具集。
+
+| 服务 | 工具集 | 能力 |
+| --- | --- | --- |
+| <img src="https://cdn.acedata.cloud/0qg4gp.png" width="32" height="32" alt="Hailuo"> Hailuo | `acedatacloud-hailuo` | 文生视频、首帧动画及已有任务查询 |
+| <img src="https://cdn.acedata.cloud/ahjfwi.png" width="32" height="32" alt="Luma"> Luma | `acedatacloud-luma` | 文生视频、首尾帧动画及已有任务查询 |
 
 ![2026-10-18正式Hermes目录搜索Suno的真实截图](../assets/tutorial/hermes-suno-search.jpg)
 

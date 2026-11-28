@@ -8,7 +8,7 @@
 through your **Ace Data Cloud** account. This is an Ace-maintained integration; it
 does not claim affiliation with the makers of those services.
 
-One plugin with 18 independently selectable service toolsets and a Nano Banana
+One plugin with 20 independently selectable service toolsets and a Nano Banana
 `image_generate` backend. The `acedatacloud` model provider remains a separate
 plugin. New services are released as version and catalog-pin updates to this
 plugin, not new catalog entries.
@@ -159,12 +159,16 @@ imply every advanced action or option from the broader APIs/Dify integrations.
 | `acedatacloud-midjourney` | Midjourney image generation | `acedatacloud_midjourney_generate` |
 | `acedatacloud-flux` | FLUX Dev image generation | `acedatacloud_flux_generate` |
 | `acedatacloud-minimax` | MiniMax H3 text-to-video and first-frame animation | `acedatacloud_minimax_generate` |
+| <img src="https://cdn.acedata.cloud/0qg4gp.png" width="32" height="32" alt="Hailuo"> `acedatacloud-hailuo` | Text-to-video or first-frame animation with Hailuo | `acedatacloud_hailuo_generate` |
+| <img src="https://cdn.acedata.cloud/ahjfwi.png" width="32" height="32" alt="Luma"> `acedatacloud-luma` | Luma text-to-video or start/end-frame animation | `acedatacloud_luma_generate` |
 | `acedatacloud-wan` | Wan 2.6 text-to-video | `acedatacloud_wan_generate` |
 | `acedatacloud-kling` | Kling 3 Turbo text-to-video | `acedatacloud_kling_generate` |
 
-Each of the 15 media services also has its own `acedatacloud_<service>_task` tool in
+Hailuo and Luma require plugin **2.2.0** or later. Run `hermes plugins info acedatacloud-media` to check the version your catalog offers.
+
+Each of the 18 media services also has its own `acedatacloud_<service>_task` tool in
 the same toolset (hyphens become underscores). Google Search and Face return
-synchronous structured results. The source manifest declares all 34 tools.
+synchronous structured results. The source manifest declares all 38 tools.
 
 Example for `acedatacloud_nano_banana_generate`:
 

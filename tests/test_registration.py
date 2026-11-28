@@ -95,6 +95,38 @@ class RegistrationTests(unittest.TestCase):
         self.assertEqual(body['count'], 1)
         self.assertEqual(request.call_args_list[1].args[0], '/nano-banana/tasks')
 
+    def test_hailuo_model_agrees_with_its_reference_before_submitting(self):
+        spec = next((s for s in plugin.SERVICES if s['service'] == 'hailuo'), None)
+        if spec is None:
+            self.skipTest('This source profile does not include hailuo.')
+        generate = self.ctx.tools[spec['generate_name']]['handler']
+        image = 'https://example.com/frame.jpg'
+        for args, model in [({}, 'minimax-t2v'), ({'first_image_url': image}, 'minimax-i2v'),
+                            ({'model': 'minimax-i2v-director', 'first_image_url': image}, 'minimax-i2v-director')]:
+            with self.subTest(args=args), patch.object(plugin.client, 'request', return_value={'task_id':'existing'}) as send:
+                result = json.loads(generate({'prompt':'Clouds', **args}))
+                self.assertEqual(result['task_id'], 'existing')
+                self.assertEqual(send.call_args.args, ('/hailuo/videos', {'action':'generate', 'prompt':'Clouds',
+                                 **args, 'model':model, 'async':True}))
+        for invalid in [{'model':'minimax-i2v'}, {'model':'minimax-t2v', 'first_image_url':image}]:
+            with self.subTest(invalid=invalid), patch.object(plugin.client, 'request') as send:
+                result = json.loads(generate({'prompt':'Clouds', **invalid}))
+                self.assertEqual(result['error']['code'], 'invalid_parameters')
+                send.assert_not_called()
+
+    def test_luma_passes_both_reference_frames_and_false_options(self):
+        spec = next((s for s in plugin.SERVICES if s['service'] == 'luma'), None)
+        if spec is None:
+            self.skipTest('This source profile does not include luma.')
+        generate = self.ctx.tools[spec['generate_name']]['handler']
+        args = {'prompt':'Sunset', 'start_image_url':'https://example.com/start.jpg',
+                'end_image_url':'https://example.com/end.jpg', 'enhancement':False, 'loop':False}
+        with patch.object(plugin.client, 'request', return_value={'task_id':'existing'}) as send:
+            result = json.loads(generate(args))
+            self.assertEqual(result['task_id'], 'existing')
+            self.assertEqual(send.call_args.args, ('/luma/videos', {'action':'generate', 'aspect_ratio':'16:9',
+                             **args, 'async':True}))
+
     def test_acemusic_references_and_partial_failure(self):
         spec = next((s for s in plugin.SERVICES if s['service'] == 'acemusic'), None)
         if spec is None:

@@ -28,7 +28,11 @@ def child(mode, combined):
         assert entry and entry.toolset == SPEC['toolset'], (mode, name)
     result = registry.dispatch(SPEC['generate_name'], {'unknown': True}, scope=manager.scope_key)
     result = json.loads(result) if isinstance(result, str) else result
-    assert result['error']['code'] == 'invalid_parameters', result
+    error = result['error']
+    if isinstance(error, str):
+        assert f"unknown: not a parameter of {SPEC['generate_name']}." in error and 'NOT invoked' in error, result
+    else:
+        assert error['code'] == 'invalid_parameters', result
     source_sets = {r for r in rows if r.startswith('acedatacloud-single-')}
     assert source_sets == {SPEC['toolset']}, source_sets
     if combined:

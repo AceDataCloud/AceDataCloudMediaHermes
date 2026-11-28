@@ -151,6 +151,15 @@ jobs:
                    if prior_candidate else '')
     history_en = 'Earlier candidate material is preserved in `history/`.' if prior_candidate else ''
     history_zh = '原候选资料保存在 `history/`。' if prior_candidate else ''
+    requires_new_media = service in {'hailuo', 'luma'}
+    catalog_en = ('Check `hermes plugins info acedatacloud-media` first. The official catalog must offer '
+                  '2.2.0 or later to include this toolset. Until then use the Git install above.'
+                  if requires_new_media else 'Install `acedatacloud-media` and enable the desired toolset.')
+    catalog_zh = ('先用 `hermes plugins info acedatacloud-media` 检查目录版本。此工具集需要 2.2.0 或更高版本。'
+                  '目录尚未更新时，请使用上面的 Git 安装方式。'
+                  if requires_new_media else '安装 `acedatacloud-media` 并选择本服务工具集。')
+    migration_zh = ('旧候选 `acedata_` 名称已移除，无别名；原服务如果有任务查询工具，旧任务 ID 可继续查询。'
+                    if prior_candidate else '')
     readme = f'''# {title} by Ace Data Cloud for Hermes
 
 [简体中文](readme/README_zh_Hans.md)
@@ -178,7 +187,7 @@ catalog entry is claimed.
 
 For the reviewed official distribution, open
 [Ace Data Cloud Media](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)
-and install `acedatacloud-media`; its service toolsets are independently selectable.
+for the package description. {catalog_en}
 The [one-product-line rule](https://github.com/NousResearch/hermes-agent/pull/135239#issuecomment-6096145033)
 continues to apply. This repository's service name and tool names identify its
 source Git route; do not use a bare service name expecting a separate catalog entry.
@@ -252,7 +261,7 @@ hermes tools enable {spec['toolset']}
 hermes tools list
 ```
 
-默认安装仓库当前默认分支；如需固定版本或回滚，增加 `--ref <40位源码SHA>`，使用本仓已合并源码 commit，启用后开始新会话。CI 验证普通 Git URL 加精确 SHA 安装。要使用官方入口，请打开[官方媒体页面](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)，安装 `acedatacloud-media` 并选择本服务工具集。未发布 PyPI 新项目，也未承诺本变体另获官方 listing。
+默认安装仓库当前默认分支；如需固定版本或回滚，增加 `--ref <40位源码SHA>`，使用本仓已合并源码 commit，启用后开始新会话。CI 验证普通 Git URL 加精确 SHA 安装。要使用官方入口，请打开[官方媒体页面](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)。{catalog_zh}未发布 PyPI 新项目，也未承诺本变体另获官方 listing。
 
 1. 打开 [Ace Data Cloud → Applications]({application})，登录或注册。
 2. 如未初始化，先初始化“通用应用”；也可选择具有本服务权限的专用应用。在“密钥 / 管理密钥 → 创建”中新建可单独撤销的 Hermes 密钥。
@@ -266,7 +275,7 @@ hermes tools list
 ## 工具与共装
 
 主工具：`{spec['generate_name']}`。{task_zh}
-旧候选 `acedata_` 名称已移除，无别名；原服务如果有任务查询工具，旧任务 ID 可继续查询。
+{migration_zh}
 
 本变体使用 `acedatacloud_single_` 名称及 `{spec['toolset']}` 工具集，与官方媒体包的名称分开，避免共装覆盖。两者同时安装时同一服务只启用一种，避免模型重复收费调用；插件不自动改 profile 的其他选择。{'Nano 原生图像后端为 `acedatacloud-single-nano-banana`，与官方包 `acedatacloud-nano-banana` 分开，按需选择一个。' if service == 'nano-banana' else '此服务不注册原生图像后端。'}
 

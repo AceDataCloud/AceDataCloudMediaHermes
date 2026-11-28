@@ -22,7 +22,7 @@ hermes plugins install acedatacloud-media --enable
 ## 2. 注册、登录并复制API Token
 
 1. 打开[Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
-2. 进入**General application（通用应用）**；没有时先点**Initialize General Application**。确认**GPT Image**服务访问权限、[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)和余额。
+2. 进入**General application（通用应用）**。确认**GPT Image**服务访问权限、[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)和余额。
 3. 复制应用卡片上的**API Key**。如需分离管理，在**Manage Keys → Create**创建命名为`Hermes GPT Image`的专用Token。通用应用Key能访问账户获准的服务，专属服务应用的Key只限该服务。
 4. 按需检查有效期、消费限制、Allowed APIs。若启用API白名单，须包含`/openai/images/generations`和`/openai/tasks`。查询权限不代表生成授权。
 5. 只复制Token原文，不加`Bearer `、引号或空格。`platform-...`平台管理Token不能替代生成Key。不承诺固定免费额度；以账户显示和实际套餐为准。

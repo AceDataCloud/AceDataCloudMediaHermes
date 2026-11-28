@@ -2,9 +2,9 @@
 
 安装媒体插件源码，使用 `hermes tools enable acedatacloud-acemusic` 启用。
 
-登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**。首次使用时先点击**初始化通用应用**，再点击 **API KEY** 旁的复制按钮（图中标注 **1**）。
+登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**。首次使用时先点击**初始化通用应用**，再点击 **API KEY** 旁的复制按钮。
 
-![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![获取 Ace Data Cloud API Key](https://cdn.acedata.cloud/dvc3cg.jpg)
 
 将原始 Key 保存在当前 Hermes 配置的 `ACEDATACLOUD_API_KEY` 中。
 

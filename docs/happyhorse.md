@@ -29,13 +29,24 @@ service package, a paid run or default bundling. [Image provenance](../assets/tu
 
 ## 2. Register or sign in and copy an API Token
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) and open **General Application**. If it is missing, select **Initialize General Application**. Click the copy button marked **1** beside **API KEY**.
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen), register or sign in.
+2. Open **General application**; if absent, choose **Initialize General Application**.
+   Check **HappyHorse (Happy Horse)** service access, [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) and balance.
+3. Copy the application **API Key**, or choose **Manage Keys → Create** and name a
+   dedicated token such as `Hermes HappyHorse (Happy Horse)`. A service-specific application key
+   can access only its service; a General application key uses your permitted services.
+4. Review expiration, usage limits and Allowed APIs. If using an API allowlist,
+   include both `/happyhorse/videos` and `/happyhorse/tasks`. Query permission
+   does not authorize generation. Copy the raw token without `Bearer ` or quotes;
+   a `platform-...` management token is not a generation API key.
 
-![Button 1 copies the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![Copy an application API Key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-Save the raw key in the active Hermes profile as `ACEDATACLOUD_API_KEY`.
+![Create an optional dedicated token and review restrictions](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-Check service access, the application balance and [current prices](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) before making a call. If the key has an API allowlist, include `/happyhorse/videos`, `/happyhorse/tasks`.
+These are real, redacted Ace console screenshots reused from the Suno Dify guide
+at source commit `8d3d03570e73324220f111f7fe343da0792a8071`, reviewed 2026-10-18.
+They show Ace account/key steps, not a Hermes screen or a trial-credit promise.
 
 ## 3. Put the token in Hermes and select this service
 

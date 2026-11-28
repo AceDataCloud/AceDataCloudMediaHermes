@@ -2,9 +2,9 @@
 
 Install the source version of this media plugin and enable `acedatacloud-acemusic` in Hermes.
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. If it is missing, select **Initialize General Application**. Click the copy button marked **1** beside **API KEY**.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. If it is missing, select **Initialize General Application**. Click the copy button to the right of **API KEY**.
 
-![Button 1 copies the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![API key in the General Application card](https://cdn.acedata.cloud/dvc3cg.jpg)
 
 Save the raw key in the active Hermes profile as `ACEDATACLOUD_API_KEY`.
 

@@ -30,13 +30,17 @@ Hailuo 和 Luma 需要 2.2.0 或以上。用 `hermes plugins info acedatacloud-m
 
 ## 2. 注册、登录并获取专用Token
 
-登录[应用列表](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen)，打开**通用应用**。首次使用时先点击**初始化通用应用**，再点击 **API KEY** 旁的复制按钮（图中标注 **1**）。
+1. 打开[Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
+2. 进入**General application**；尚未创建时点**Initialize General Application**。确认所需服务权限、[当前价格](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen)和余额。
+3. 复制卡片上的**API Key**，或**Manage Keys → Create**新建名为`Hermes media`的专用Token，方便独立撤销。通用应用Key访问账户获准服务，专属应用Key只访问所属服务。
+4. 检查有效期、消费上限与Allowed APIs。启用白名单时包含所用服务的生成和任务查询路径；每个服务指南列出准确路径。查询权不等于生成授权。
+5. 只复制原始Token，不加`Bearer `、引号或空格；`platform-...`管理Token不能替代生成Key。账户当前显示的额度才是实际额度，不承诺固定试用额。
 
-![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![复制API Key或进入Manage Keys的真实脱敏截图](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-将原始 Key 保存在当前 Hermes 配置的 `ACEDATACLOUD_API_KEY` 中。
+![创建专用Token并查看限制的真实截图](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-调用前检查服务权限、应用余额和[当前价格](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen)。
+两图是固定SunoDify源提交中的真实Ace控制台截图，2026-10-18核对，已隐藏凭据。图中Dify教程名称是原示例，不是Hermes界面。
 
 ## 3. 在Hermes填写并启用所需服务
 

@@ -21,13 +21,17 @@ hermes plugins install acedatacloud-media --enable
 
 ## 2. 注册、登录并复制API Token
 
-登录[应用列表](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)，打开**通用应用**。首次使用时先点击**初始化通用应用**，再点击 **API KEY** 旁的复制按钮（图中标注 **1**）。
+1. 打开[Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
+2. 进入**General application（通用应用）**；没有时先点**Initialize General Application**。确认**Suno**服务访问权限、[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)和余额。
+3. 复制应用卡片上的**API Key**。如需分离管理，在**Manage Keys → Create**创建命名为`Hermes Suno`的专用Token。通用应用Key能访问账户获准的服务，专属服务应用的Key只限该服务。
+4. 按需检查有效期、消费限制、Allowed APIs。若启用API白名单，须包含`/suno/audios`和`/suno/tasks`。查询权限不代表生成授权。
+5. 只复制Token原文，不加`Bearer `、引号或空格。`platform-...`平台管理Token不能替代生成Key。不承诺固定免费额度；以账户显示和实际套餐为准。
 
-![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![复制API Key或打开Manage Keys的真实脱敏控制台截图](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-将原始 Key 保存在当前 Hermes 配置的 `ACEDATACLOUD_API_KEY` 中。
+![创建专用Token并检查限制的真实控制台截图](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-调用前检查服务权限、应用余额和[当前价格](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen)。若此 Key 已设置允许的 API，须包含`/suno/audios`、`/suno/tasks`。
+两张图来自固定SunoDify源提交`8d3d035...`，已脱敏，2026-10-18核对。它们展示Ace账户界面，图片中的Dify名称只是原示例，不是Hermes填写位置或免费额度证明。
 
 ## 3. 在Hermes填写Token并只选择需要的服务
 

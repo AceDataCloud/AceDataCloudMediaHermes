@@ -2,8 +2,8 @@
 
 The official catalog remains one `acedatacloud-media` product line, with per-service
 toolset selection. A custom Git source install can instead register only one
-service's minimal toolset. All 17 canonical services have source profiles. Face
-analysis and Google Search each expose one synchronous paid tool; the other 15
+service's minimal toolset. All 20 canonical services have source profiles. Face
+analysis and Google Search each expose one synchronous paid tool; the other 18
 profiles expose generation and same-ID task lookup. No extra official listings
 are proposed.
 
@@ -49,6 +49,6 @@ transport 副本。历史候选 spec/测试/实测证据移入 history 保留。
 The exporter uses only existing dated catalog images and labels them as the shared
 media entry, not proof of a new source profile or unverified service-name search.
 
-中文：17 个服务均支持单服务 Git 安装。Face / Google Search 为单个同步收费工具，
+中文：20 个服务均可生成单服务源码配置。Face / Google Search 为单个同步收费工具，
 没有任务查询；其余服务为生成和同 ID 查询两个工具。当前新输出锁定 Hermes 0.23.1
 验收，旧 Top5 的不可变来源锁与原测试日期继续保留，不把它们改写成今日新验收。

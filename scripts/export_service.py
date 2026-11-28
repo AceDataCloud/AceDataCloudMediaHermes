@@ -26,6 +26,8 @@ SERVICES = {
     'flux': ('FLUX', 'FluxHermes'),
     'google-search': ('Google Search', 'GoogleSearchHermes'),
     'grok': ('Grok Video', 'GrokHermes'),
+    'hailuo': ('Hailuo', 'HailuoHermes'),
+    'luma': ('Luma Dream Machine', 'LumaHermes'),
     'kling': ('Kling', 'KlingHermes'),
     'midjourney': ('Midjourney', 'MidjourneyHermes'),
     'minimax': ('MiniMax H3', 'MiniMaxHermes'),
@@ -144,7 +146,7 @@ jobs:
     native = ('The native image backend is `acedatacloud-single-nano-banana`; the official media backend '
               'remains `acedatacloud-nano-banana`. Select only the backend you intend to use.'
               if service == 'nano-banana' else 'This variant registers no native image backend.')
-    prior_candidate = service != 'acemusic'
+    prior_candidate = service not in {'acemusic', 'hailuo', 'luma'}
     legacy_note = ('- To migrate the previous candidate, update saved tool names and retain original task IDs.'
                    if prior_candidate else '')
     history_en = 'Earlier candidate material is preserved in `history/`.' if prior_candidate else ''
@@ -278,6 +280,12 @@ CI 包括 unittest 正常发现、Hermes {HOST_VERSION} 官方校验、按精确
 
 截图为 **2026-10-18** 官方媒体 **2.0.1** 历史页面，只展示共同媒体目录项，不是本服务搜索、本源码变体、新收费结果或当前 GUI 验收。
 '''
+    service_icons = {'hailuo': 'https://cdn.acedata.cloud/0qg4gp.png',
+                     'luma': 'https://cdn.acedata.cloud/ahjfwi.png'}
+    if service in service_icons:
+        icon = f'<img src="{service_icons[service]}" width="64" height="64" alt="{title}">'
+        readme = readme.replace('\n\n', f'\n\n{icon}\n\n', 1)
+        chinese = chinese.replace('\n\n', f'\n\n{icon}\n\n', 1)
     files.update({'README.md': readme.encode(), 'readme/README_zh_Hans.md': chinese.encode()})
     provenance = {
         'canonical_repository': REPO, 'canonical_commit': source_ref,

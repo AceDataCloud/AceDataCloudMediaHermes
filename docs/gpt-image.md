@@ -30,7 +30,7 @@ service package, a paid run or default bundling. [Image provenance](../assets/tu
 ## 2. Register or sign in and copy an API Token
 
 1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen), register or sign in.
-2. Open **General application**; if absent, choose **Initialize General Application**.
+2. Open **General application**.
    Check **GPT Image** service access, [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) and balance.
 3. Copy the application **API Key**, or choose **Manage Keys → Create** and name a
    dedicated token such as `Hermes GPT Image`. A service-specific application key

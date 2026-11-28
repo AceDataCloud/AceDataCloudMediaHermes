@@ -195,9 +195,7 @@ source Git route; do not use a bare service name expecting a separate catalog en
 ## Application API key and spending
 
 1. Open [Ace Data Cloud → Applications]({application}); sign in or register.
-2. Initialize **General application** if needed, or use a dedicated application
-   with access to this service. Open **Keys / Manage Keys → Create** and name a
-   separately revocable key for Hermes.
+2. Open **General Application** and click the copy button beside **API KEY**.
 3. Review expiration, usage limits and Allowed APIs. Copy the raw token without
    `Bearer ` into the active Hermes profile. A `platform-...` management token
    cannot replace an application API key. Keep it out of prompts and Git.
@@ -264,7 +262,7 @@ hermes tools list
 默认安装仓库当前默认分支；如需固定版本或回滚，增加 `--ref <40位源码SHA>`，使用本仓已合并源码 commit，启用后开始新会话。CI 验证普通 Git URL 加精确 SHA 安装。要使用官方入口，请打开[官方媒体页面](https://hermes-agent.nousresearch.com/docs/plugins/acedatacloud-media)。{catalog_zh}未发布 PyPI 新项目，也未承诺本变体另获官方 listing。
 
 1. 打开 [Ace Data Cloud → Applications]({application})，登录或注册。
-2. 如未初始化，先初始化“通用应用”；也可选择具有本服务权限的专用应用。在“密钥 / 管理密钥 → 创建”中新建可单独撤销的 Hermes 密钥。
+2. 打开**通用应用**，点击 **API KEY** 旁的复制按钮。
 3. 检查到期时间、使用量限制和允许 API。复制不含 `Bearer ` 的原始 Token 到当前 Hermes profile；`platform-...` 管理 Token 不能替代应用 API Key。不要写进提示词或 Git。
 4. 调用前检查[当前价格与余额]({pricing})。试用额度以账户实际显示为准，安装成功不表示免费使用。
 
